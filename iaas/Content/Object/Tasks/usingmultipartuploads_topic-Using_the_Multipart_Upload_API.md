@@ -1,0 +1,30 @@
+Updated 2024-02-12
+# Using the Multipart Upload API for Object Storage
+Learn how to run multipart uploads for a bucket using the API.
+A multipart upload performed using the API consists of the following steps:
+  1. Creating the object parts
+  2. Starting an upload
+  3. Uploading the object parts
+  4. Committing (or canceling) the upload
+
+
+Before you use the multipart upload API, you're responsible for creating the parts to upload. Object Storage provides API operations for the remaining steps. The service also provides API operations for listing in-progress multipart uploads, listing the object parts in an in-progress multipart upload, and quitting in-progress multipart uploads started through the API. Here we provide a high-level overview of the API steps, but you can see the [API Reference](https://docs.oracle.com/iaas/api/) for specifics about supported API calls. 
+## Creating the Object Parts
+With multipart upload, you split the object you want to upload into individual parts. Individual parts can be as large as 50 GiB. Decide what part number you want to use for each part. Part numbers can range from 1 to 10,000. You don't need to assign contiguous numbers, but Object Storage constructs the object by ordering part numbers in ascending order.
+## Starting an Upload
+After you finish creating object parts, start a multipart upload by making a [CreateMultipartUpload](https://docs.oracle.com/iaas/api/#/en/objectstorage/latest/MultipartUpload/CreateMultipartUpload) REST API call. Provide the object name and any object metadata. Object Storage responds with a unique upload ID that you must include in any requests related to this multipart upload. Object Storage also marks the upload as active. The upload remains active until you explicitly commit it or abort it.
+## Uploading the Object Parts
+Make an [UploadPart](https://docs.oracle.com/iaas/api/#/en/objectstorage/latest/MultipartUpload/UploadPart) request for each object part upload. In the request parameters, provide the Object Storage [namespace](https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/understandingnamespaces.htm#namespaces "Learn about how to access and use your namespace for running Object Storage tasks."), bucket name, upload ID, and part number. In the request body, include the object part. Object parts can be uploaded in parallel and in any order. When you commit the upload, Object Storage uses the part numbers to sequence object parts. Part numbers don't have to be contiguous. If several object parts are uploaded using the same upload ID and part number, the [CommitMultipartUpload](https://docs.oracle.com/iaas/api/#/en/objectstorage/latest/MultipartUpload/CommitMultipartUpload) operation commits the last part uploaded. See [Special Instructions for Object Storage PUT](https://docs.oracle.com/iaas/Content/API/Concepts/signingrequests.htm#five) for signing request requirements.
+Object Storage returns an ETag (entity tag) value for each part uploaded. You need both the part number and corresponding ETag value for each part when you commit the upload.
+If you have network issues, you can restart a failed upload for an individual part. You don't need to restart the entire upload. If for some reason, you can't perform an upload all at once, multipart upload lets you continue uploading parts at your own pace. While a multipart upload is still active, you can keep adding parts as long as the total number is less than 10,000.
+You can check on an active multipart upload by listing all parts that have been uploaded. (You can't list information for an individual object part in an active multipart upload.) The [ListMultipartUploadParts](https://docs.oracle.com/iaas/api/#/en/objectstorage/latest/MultipartUpload/ListMultipartUploadParts) operation requires the Object Storage namespace, bucket name, and upload ID. Object Storage responds with information about the parts associated with the specified upload ID. Parts information includes the part number, ETag value, MD5 checksum, and part size (in bytes).
+Similarly, if you have several multipart uploads occurring simultaneously, you can see what uploads are in-progress. Make an[ ListMultipartUploads](https://docs.oracle.com/iaas/api/#/en/objectstorage/latest/MultipartUpload/ListMultipartUploads) API call to list active multipart uploads in the specified Object Storage namespace and bucket.
+Charges for parts storage begin accruing when you upload data.
+## Committing the Upload
+When you have uploaded all object parts, commit the upload. Use the [CommitMultipartUpload](https://docs.oracle.com/iaas/api/#/en/objectstorage/latest/MultipartUpload/CommitMultipartUpload) request parameters to specify the Object Storage namespace, bucket name, and upload ID. Include the part number and corresponding ETag value for each part in the body of the request. When you commit the upload, Object Storage constructs the object from its constituent parts. The object is stored in the specified bucket and Object Storage namespace. You can treat it similar as you would any other object. Garbage collection releases storage space occupied by any part numbers you uploaded, but didn't include in the [CommitMultipartUpload](https://docs.oracle.com/iaas/api/#/en/objectstorage/latest/MultipartUpload/CommitMultipartUpload) request.
+You can't list or retrieve parts from a completed upload. You can't append or remove parts from the completed upload either. If you want, you can replace the object by starting a new upload.
+## Canceling the Upload
+If you decide to cancel a multipart upload instead of committing it, wait for in-progress part uploads to complete and then use the[ AbortMultipartUpload](https://docs.oracle.com/iaas/api/#/en/objectstorage/latest/MultipartUpload/AbortMultipartUpload) operation. If you cancel an upload while part uploads are still in progress anyway, Object Storage cleans up both completed and in-progress parts. Upload IDs from canceled multipart uploads can't be reused.
+Was this article helpful?
+YesNo
+

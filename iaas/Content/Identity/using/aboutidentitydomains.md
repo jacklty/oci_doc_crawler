@@ -1,0 +1,13 @@
+Updated 2023-05-31
+# Identity Domains User Guide
+Your administrator gives you access to an identity domain. You use an identity domain to configure profile and security settings, manage 2-step verification for your account, generate bypass codes and to use the Oracle Mobile Authenticator (OMA) app.
+When you sign in to an identity domain, you can:
+  * **Manage My Profile Information and Settings**. Learn how to recover your account, update your profile, change your password, view your group and application access, and more. See [Managing My Profile Information and Settings](https://docs.oracle.com/en-us/iaas/Content/Identity/usersettings/overview.htm#typical-workflow-configuring-user-settings "Use My Profile to change your password, create credentials \(for example, API keys, customer secret keys, and database passwords\), update your profile information, manage groups and applications to which you have been granted access, link and unlink your social accounts from your identity domain account, access your consents, and more.").
+  * **Set Up Account Recovery and 2-Step Verification**. Set your account recovery options, enroll in 2-Step Verification, and manage your 2-step verification methods. See [Setting Up Account Recovery and 2-Step Verification](https://docs.oracle.com/en-us/iaas/Content/Identity/usersettings/manage_security_and_2_step_verification.htm#manage_security_and_2_step_verification "Set up and manage account recovery, 2-step verification, and generate bypass codes to ensure that you always have secure access to your account.").
+  * **Generate a Bypass Code**. Generate a bypass code after you enroll in 2-Step Verification. And then use that bypass code to access your account when, for example, you don't have internet access. See [Generating a Bypass Code](https://docs.oracle.com/en-us/iaas/Content/Identity/usersettings/generate-bypass-code.htm#generate-bypass-code "A bypass code is useful as a second verification factor or for account recovery. You can generate bypass codes after you enroll in 2-Step Verification. And then use that bypass code to access your account when, for example, you don't have your mobile device for verification.").
+  * **Use the Oracle Mobile Authenticator (OMA) App**. Use this app to increase your security by providing a second verification method to sign in. See [Using the Oracle Mobile Authenticator App](https://docs.oracle.com/en-us/iaas/Content/Identity/mobileauthapp/overview-oma-app.htm#typical-workflow-managing-oracle-mobile-authenticator-app "Use the Oracle Mobile Authenticator \(OMA\) App to perform tasks such as adding an account to the OMA App and then using the OMA App as a second verification method with IAM.").
+
+
+Was this article helpful?
+YesNo
+

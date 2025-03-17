@@ -1,0 +1,27 @@
+Updated 2024-10-07
+# Routine Security Tasks
+Conducting routine security tasks keeps Compute Cloud@Customer safe from breaches and unauthorized access, and provides a means of recovery for unplanned data loss.
+Perform the following tasks regularly:
+  * [Take Regular Backups](https://docs.oracle.com/en-us/iaas/compute-cloud-at-customer/topics/security/routine_security_tasks.htm#routine_security_tasks__backups)
+  * [Ensure the System is Upgraded](https://docs.oracle.com/en-us/iaas/compute-cloud-at-customer/topics/security/routine_security_tasks.htm#routine_security_tasks__upgrades)
+  * Monitor your Identity and Access Management (IAM) configuration and establish authentication best practices. See [Securing IAM](https://docs.oracle.com/iaas/Content/Security/Reference/iam_security.htm).
+
+
+## Take Regular Backups 🔗 
+The following table lists the Compute Cloud@Customer backup and restore features that you can use to ensure data durability.
+Backup and Restore Features | Links  
+---|---  
+**Compute Instances** You can create backups of your instances, and use the backups to restore or create new instances. The instance backup is created in an Object Storage bucket. From there, you copy it to another server in your data center for safekeeping. When needed, you can import the backup into any Object Storage bucket, and use it to create instances.  | [Backing Up and Restoring an Instance](https://docs.oracle.com/en-us/iaas/compute-cloud-at-customer/topics/compute/backing-up-and-restoring-an-insance.htm#backing-up-and-restoring-an-insance "On Compute Cloud@Customer, supports backing up and restoring instances. The instance backup is created in an Object Storage bucket. From there, you can copy it to another server in your data center for safekeeping. When needed, you can import the backup into any Compute Cloud@Customer Object Storage bucket, and use it to create instances.")  
+**Block Volumes** You can make a backup of a volume when the volume is attached to an instance or while it is detached. You can take manual or create scheduled backups. | [Backing Up Block Volumes](https://docs.oracle.com/en-us/iaas/compute-cloud-at-customer/topics/block/backing-up-block-volumes.htm#backing-up-block-volumes "On Oracle Compute Cloud@Customer, the backup feature for the Block Volume service enables you make a point-in-time snapshot of the data on a block or boot volume. These backups can then be restored to new volumes any time.")  
+**File Storage** You can create snapshots which are a consistent, point-in-time view of your file systems.  You can create file system clones, which are a new file systems that are created based on a snapshot of an existing file system. |  [Managing File System Snapshots](https://docs.oracle.com/en-us/iaas/compute-cloud-at-customer/topics/file/managing-file-system-snapshots.htm#managing-file-system-snapshots "On Compute Cloud@Customer, the File Storage service supports snapshots for file system data protection.") [Managing File System Clones](https://docs.oracle.com/en-us/iaas/compute-cloud-at-customer/topics/file/managing-file-system-clones.htm#file-system-clones "On Compute Cloud@Customer, a clone is a new file system that is created based on a snapshot of an existing file system. Snapshots preserve the state of the data of a file system at a particular point in time. If you take snapshots of a file system at regular intervals, you can create clones of the file system as it existed at multiple points in its lifetime.")  
+**Object Storage** You can use Object versioning, which provides data protection against accidental or malicious object updates, overwrites, or deletions.  You can use Object retention rules, which provide immutable storage options for data written to Object Storage for data governance, regulatory compliance, and legal hold requirements. Retention rules can also protect your data from accidental or malicious writes or deletion. Retention rules can be locked to prevent rule modification and data deletion or modification even by administrators. | [Managing Object Versioning](https://docs.oracle.com/en-us/iaas/compute-cloud-at-customer/topics/object/managing-object-versioning.htm#managing-object-versioning "On Compute Cloud@Customer, object versioning provides data protection against accidental or malicious object update, overwrite, or deletion.")  
+## Ensure the System is Upgraded 🔗 
+Oracle performs all Compute Cloud@Customer upgrades and patching. 
+You can determine when the upgrades and patches are applied using these: 
+  * Configuring upgrade schedules. If you don't create an upgrade schedule, Oracle can upgrade Compute Cloud@Customer at any time. See [Managing Upgrade Schedules](https://docs.oracle.com/en-us/iaas/compute-cloud-at-customer/topics/infrastructure/managing-upgrade-schedules.htm#managing-upgrade-schedules "Use Upgrade Schedules to define time periods when a Compute Cloud@Customer infrastructure may be upgraded by Oracle.").
+  * Enabling Oracle personnel to access the Compute Cloud@Customer infrastructure. See [Oracle Operator Access Control](https://docs.oracle.com/en-us/iaas/compute-cloud-at-customer/topics/overview/managed-access.htm#architectural-overview "Compute Cloud@Customer supports the use of Oracle Operator Access Control to manage requests for temporary access to your organization's cloud resources from OCI authorized operators.").
+
+
+Was this article helpful?
+YesNo
+

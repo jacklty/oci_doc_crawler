@@ -1,0 +1,12 @@
+Updated 2023-04-05
+## Networking  🔗 
+MySQL DB system endpoints are not public. To connect to a DB system, create a virtual cloud network (VCN) and add ingress rules.
+  * [Overview of Networking](https://docs.oracle.com/en-us/iaas/mysql-database/doc/overview-networking.html#GUID-374E351D-8D4C-431B-8C03-CEED86814F81 "MySQL DB system endpoints are not public. To connect to a DB system, create a virtual cloud network \(VCN\) and add ingress rules. You can then use a compute instance, a Bastion session, or a VPN connection to connect to the DB system.")
+  * [Creating a Virtual Cloud Network](https://docs.oracle.com/en-us/iaas/mysql-database/doc/creating-virtual-cloud-network.html#GUID-A5D4A49C-53AD-4A6B-978A-5A7435E73762 "Create a virtual cloud network \(VCN\) that adheres to the security rules and IP address requirements.")
+  * [Adding Ingress Rules for a Compute Instance, Bastion Session or VPN Connection](https://docs.oracle.com/en-us/iaas/mysql-database/doc/adding-ingress-rules-compute-instance-bastion-session-or-vpn-connection.html#GUID-A3B88045-F20B-45F4-8EF9-0411BB308958 "If you are connecting to a DB system using a compute instance, Bastion session, or VPN connection, add ingress rules to the security list of the private subnet.")
+  * [Adding Ingress Rules for a Network Load Balancer](https://docs.oracle.com/en-us/iaas/mysql-database/doc/adding-ingress-rules-network-load-balancer.html#GUID-AD27932B-8ECD-400A-B6C2-C4BBEBB5EC28 "If you are connecting to a DB system using a network load balancer, that is, using a public IP address, add ingress rules to the default security list of the public subnet.")
+
+
+Was this article helpful?
+YesNo
+

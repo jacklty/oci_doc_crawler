@@ -1,0 +1,28 @@
+Updated 2024-09-25
+## Overview of Networking 🔗 
+MySQL DB system endpoints are not public. To connect to a DB system, create a virtual cloud network (VCN) and add ingress rules. You can then use a compute instance, a Bastion session, or a VPN connection to connect to the DB system.
+Do the following to configure networking:
+**Note** Ensure that the subnet you use has some free IP addresses for migration efforts and other support requirements. 
+  1. **Create a virtual cloud network** : If you do not have a VCN with a private or public regional subnet already present in your tenancy, create a VCN. See [Creating a Virtual Cloud Network](https://docs.oracle.com/en-us/iaas/mysql-database/doc/creating-virtual-cloud-network.html#GUID-A5D4A49C-53AD-4A6B-978A-5A7435E73762 "Create a virtual cloud network \(VCN\) that adheres to the security rules and IP address requirements."). 
+  2. **Add ingress rules** : Add ingress rules to allow traffic from authorized IP addresses. See [Adding Ingress Rules for a Compute Instance, Bastion Session or VPN Connection](https://docs.oracle.com/en-us/iaas/mysql-database/doc/adding-ingress-rules-compute-instance-bastion-session-or-vpn-connection.html#GUID-A3B88045-F20B-45F4-8EF9-0411BB308958 "If you are connecting to a DB system using a compute instance, Bastion session, or VPN connection, add ingress rules to the security list of the private subnet."). 
+
+
+**Networking Considerations**
+While creating a VCN, adhere to the following:
+  * **Security rules** : To enable communication between your local network or a compute and the DB system, configure the subnets of the VCN subnets with security rules. These rules permit traffic from specific IP addresses and ports, or ranges of IP addresses and ports, between resources. See [Network Security Rules](https://docs.oracle.com/iaas/Content/Network/Concepts/securityrules.htm). 
+  * **IP address requirements** : When you define the CIDR block, note the IP address requirements: 
+    * _The Networking service_ : Reserves three IP addresses in each subnet. See [Reserved IP Addresses](https://docs.oracle.com/iaas/Content/Network/Concepts/overview.htm#Reserved). 
+    * _Standalone DB system_ : Requires three IP addresses for the following: the DB system, the compute instance hosting the MySQL instance, and for maintenance and upgrade tasks on the MySQL instance. 
+    * _High availability DB system_ : Requires five IP addresses for the following: the DB system, one per compute instance hosting the MySQL instance (three in total), and for maintenance and upgrade tasks on one of the MySQL instances at a time in a rolling manner. 
+    * _Read replica_ : Requires three IP addresses for the following: the read replica, the compute instance hosting the MySQL instance, and for maintenance and upgrade tasks on the MySQL instance. 
+    * _Read replica load balancer_ : Requires one IP address. 
+
+
+**Related Topics**
+  * [Networking Overview](https://docs.oracle.com/iaas/Content/Network/Concepts/overview.htm)
+  * [VCNs and Subnets](https://docs.oracle.com/iaas/Content/Network/Tasks/managingVCNs.htm)
+
+
+Was this article helpful?
+YesNo
+

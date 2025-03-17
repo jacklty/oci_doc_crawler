@@ -1,0 +1,10 @@
+Updated 2024-11-14
+## Compute Management 🔗 
+  * [Compute Models in Autonomous Database on Dedicated Exadata Infrastructure](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/adbd-compute-models.html#GUID-07C5381D-27FB-4346-B4FC-A5038EC83F99)
+  * [Consolidate Autonomous Database Instances Using Elastic Pools](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-75F3DACD-572F-4B5B-BBC3-F2FF5A1ED928)Use an elastic pool to consolidate your Autonomous Database instances, in terms of their allocation of compute resources, and to provide up to 87% cost savings. 
+
+
+**Parent topic:** [Features](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/features.html)
+Was this article helpful?
+YesNo
+

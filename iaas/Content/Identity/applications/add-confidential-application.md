@@ -1,0 +1,83 @@
+Updated 2025-01-14
+# Adding a Confidential Application
+Confidential applications run on a protected server.
+  1. Open the **navigation menu** and select **Identity & Security**. Under **Identity** , select **Domains**. 
+  2. Click the name of the identity domain that you want to work in. You might need to change the compartment to find the domain that you want. Then, click **Integrated applications**.
+  3. Select **Add application.**
+  4. In the **Add application** window, select **Confidential Application** , and then select **Launch workflow**.
+  5. In the Add application details page, use the following table to configure application details and the display settings.
+Option | Description  
+---|---  
+**Name** |  Enter a name for the confidential application. You can enter up to 125 characters. For applications with lengthy names, the application name appears truncated in the **My Apps** page. Consider keeping application names as short as possible.  
+**Description** |  Enter a description for the confidential application. You can enter up to 250 characters.  
+**Application icon** |  Select the close (X) in the Application icon window to delete the default **Application icon** and then add your own icon for the application. This icon appears next to the name of the application on the My Apps page and the Applications page.  
+**Application URL** |  Enter the URL (HTTP or HTTPS) where the user is redirected after a successful login. This value is also known as the SAML RelayState parameter. HTTPS format is suggested. Only use HTTP for testing purposes. For Enterprise applications, the application URL is the URL that you want users to use to access your enterprise application. Use the host name and port number of the App Gateway. If you have multiple instances of App Gateway, then use the host name and port number of the load balancer.  
+**Custom sign-in URL** |  In the **Custom sign-in URL** field, specify a custom sign-in URL. However, if you're using a default login page provided by IAM, then leave this field blank.  
+**Custom sign-out URL** |  In the **Custom sign-out URL** field, specify a custom sign-out URL. However, if you're using a default login page provided by IAM, then leave this field blank.  
+**Custom error URL** |  This is an optional field. Enter the error page URL to which a user has to be redirected, if there's a failure. If not specified, the tenant-specific Error page URL is used. If both the error URLs aren't configured, then the error is redirected to the IAM Error Page (/ui/v1/error). When a user tries to use social authentication (ex: Google, Facebook, and so on) for logging into IAM, the callback URL must be configured in the Custom Error URL field. Social providers need this callback URL to call IAM and send the response back after social authentication. The provided callback URL is used to verify whether the user exists or not (if this is a first-time social login), and display an error if the social authentication has failed. This is the URL where the callback is sent with social registration user details, if a successful logged-in social user account doesn't exist in IAM.  
+**Custom social linking callback URL** |  This is an optional field. Enter the URL that IAM can redirect to after linking of a user between social providers and IAM is complete. When you create a custom app using IAM custom SDK and integrate with IAM Social Login, the custom app needs to have the Linking callback URL which can be redirected after linking of the user between social provider and IAM is complete.  
+**Display in My Apps** |  Select the checkbox if you want the confidential application to be listed for users on their My Apps pages. In this case, you need to configure the application as a resource server. When you select the **Display in My Apps** checkbox in applications, the app is then visible in the **My Apps** page, but selecting this checkbox doesn't enable or disable SSO to the app. The flag to enable or disable SSO comes from the app template.  
+**User can request access** |  Select the checkbox if you want end users to be able to request access to the app from their **My Apps** page by selecting **Add Access.** If self-service isn't enabled, users won't see the **Add Access** button.  
+For Confidential apps: **Enforce grants as authorization** For Enterprise apps: **User must be granted this app** |  If you want IAM to control access to the application based on grants to users and groups, select this option. If you clear this option, any authenticated user has access to the application.  
+  6. Select **Next**. 
+  7. On the **Configure OAuth** pane, to protect resources for your application now, and to make the application visible on the **My Apps** page, select **Configure this application as a resource server now**
+Use the following table to provide the information needed to configure this application as a resource server.
+Option | Description  
+---|---  
+**Access token expiration (seconds)** |  Define how long (in seconds) the access token associated with your confidential application remains valid.  
+**Allow token refresh** |  Select this checkbox if you want to use the refresh token that you obtain when using the Resource Owner, Authorization Code, or Assertion grant types.  
+**Refresh token expiration (seconds)** |  Define how long (in seconds) the refresh token, which is returned with your access token and is associated with your confidential application, remains valid.  
+**Primary audience** |  Enter the primary recipient where the access token of your confidential application is processed.  
+**Add secondary audience** |  Enter the secondary recipients where the access token of your confidential application is processed, and select **Add**. The secondary recipient appears in **Secondary audience** column, and the **Protected** column allows you to know whether the secondary audience is protected or not.  
+**Add scopes** |  To specify which parts of other applications that you want your application to access, add those scopes to your confidential application. Applications must interact securely with external partner or confidential applications. Also, applications from one Oracle Cloud service must interact securely with applications in another Oracle Cloud service. Each application has application scopes that determine which of its resources are available to other applications.  
+  8. On the **Configure OAuth** pane, select **Configure this application as a client now**.
+Use the following table to provide the information needed to configure this application as a client.
+Option | Description  
+---|---  
+**Resource owner** | Use when the resource owner has a trust relationship with the confidential application, such as a computer operating system or a highly privileged application, because the confidential application must discard the password after using it to obtain the access token.  
+**Client credentials** |  Use when the authorization scope is limited to the protected resources under the control of the client or to the protected resources registered with the authorization server. The client presents its own credentials to obtain an access token. This access token is either associated with the client's own resources, and not a particular resource owner, or is associated with a resource owner for whom the client is otherwise authorized to act  
+**JWT assertion** |  Use when you want to use an existing trust relationship expressed as an assertion and without a direct user approval step at the authorization server. The client requests an access token by providing a user JSON web token (JWT) assertion or a third-party user JWT assertion and client credentials. A **JWT assertion** is a package of information that facilitates the sharing of identity and security information across security domains.  
+**SAML2 assertion** |  Use when you want to use an existing trust relationship expressed as a SAML2 assertion and without a direct user approval step at the authorization server. The client requests an access token by providing a user SAML2 assertion or a third-party user SAML2 assertion and client credentials. A **SAML2 assertion** is a package of information that facilitates the sharing of identity and security information across security domains.  
+**Refresh token** | Select this grant type when you want a refresh token supplied by the authorization server, and then use it to obtain a new access token. Refresh tokens are used when the current access token becomes invalid or expires and don't require the resource owner to reauthenticate.  
+**Authorization code** |  Select this grant type when you want to obtain an authorization code by using an authorization server as an intermediary between the client application and resource owner. An **authorization code** is returned to the client through a browser redirect after the resource owner gives consent to the authorization server. The client then exchanges the authorization code for an access (and often a refresh) token. Resource owner credentials are never exposed to the client.  
+**Implicit** |  If the application can't keep client credentials confidential for use in authenticating with the authorization server, then select this checkbox. For example, your application is implemented in a web browser using a scripting language such as JavaScript. An access token is returned to the client through a browser redirect in response to the resource owner authorization request (rather than an intermediate authorization).  
+**Device code** |  Select the **Device Code** grant type if the client doesn't have the capability to receive requests from the OAuth Authorization Server, for example, it can't act as an HTTP server such as game consoles, streaming media players, digital picture frames, and others. In this flow, the client obtains the user code, device code, and verification URL. The user then accesses the verification URL in a separate browser to approve the access request. Only then can the client obtain the access token using the device code.  
+**TLS client authentication** |  Select the **TLS Client Authentication** grant type to use the client certificate to authenticate with the client. If a token request comes with an X.509 client certificate and the requested client is configured with the **TLS Client Authentication** grant type, the OAuth service uses the Client_ID in the request to identify the client and validate the client certificate with the certificate in the client configuration. The client is successfully authenticated only if the two values match. For added security, before enabling the **TLS Client Authentication** grant type, enable and configure OCSP validation and import a trusted partner certificate.   
+**Allow HTTP URLs** |  Select this checkbox if you want to use HTTP URLs for the **Redirect URL,** **Logout URL,** or **Post logout redirect URL** fields. For example, if you're sending requests internally, want a non-encrypted communication, or want to be backward-compatible with OAuth 1.0, then you can use an HTTP URL. Also, select this checkbox when you're developing or testing your application and you might not have configured SSL. This option isn't recommended for production deployments.  
+**Redirect URL** |  Enter the application URL where the user is redirected after authentication. **Note:** Provide an absolute URL. Relative URLs aren't supported.  
+**Post-logout redirect URL** |  Enter the URL where you want to redirect the user after logging out of the application.  
+**Logout URL** |  Enter the URL where the user is redirected after logging out of the confidential application.  
+**Client type** |  Select the client type. The available client types are **Trusted** and **Confidential**. Choose **Trusted** if the client can generate self-signed user assertions. Then, to import your signing certificate that the client uses to sign its self-signed assertion, select **Import certificate.**  
+**Allowed operations** | 
+     * Select the **Introspect** checkbox if you want to allow access to a token introspection end point for your application. If the confidential application can't keep client credentials confidential for use in authenticating with the authorization server, then select this checkbox. For example, your confidential application is implemented in a web browser using a scripting language such as JavaScript. An access token is returned to the client through a browser redirect in response to the resource owner authorization request (rather than an intermediate authorization code).
+     * Select the **On behalf of** checkbox if you want to ensure that access privileges can be generated from the user's privileges alone. This allows the client application to access endpoints to which the user has access, even if the client application by itself would not normally have access.  
+**ID token encryption algorithm** |  Select one of the content encryption algorithms.  
+**Bypass consent** |  If enabled, this attribute overwrites the **Require consent** attribute for all the scopes configured for the application, and then no scope will require consent.  
+**Client IP address** | 
+     * **Anywhere** : The token request is allowed from anywhere. There's no perimeter.
+     * **Restrict by network perimeter** : Select the network perimeters so that a token request is only allowed from them.  
+**Authorized resources** |  Select one of the following options to allow a client application to access authorized resources:
+     * **All** – Access any resource within a domain (All). See [Accessing All Resources](https://docs.oracle.com/en-us/iaas/Content/Identity/applications/access-all-resources.htm#access-all-resources "The All authorized resource option enables the client to access any resource within a domain.").
+     * **Specific** – Access only those resources where an explicit association between the client and the resource (Specific) exists. See [Accessing Resources With Specific Scopes](https://docs.oracle.com/en-us/iaas/Content/Identity/applications/access-resources-specific-scopes.htm#access-resources-specific-scopes "The Specific authorized resource option enables the client to access only those resources where an explicit association between the client and the resource exists.").
+**Note:** The option to define an authorized resource is available to only Confidential applications. Trust scope can't be defined for Mobile applications.  
+**Add resources** |  If you want your application to access APIs from other applications, then check **Add resources** in the **Token issuance policy** section. Then, in the **Add scope** window, select the applications that your application references. **Note:** You can delete scopes by selecting the **x** icon next to the scope. However, you can't delete scopes that are protected.  
+**Add app roles** |  Check **Add app roles**. In the **Add app roles** window, select the application roles that you want to assign to this application. This enables your application to access the REST APIs that each of the assigned application roles can access. For example, select **Identity Domain Administrator** from the list. All REST API tasks available to the identity domain administrator will be accessible to your application. You can delete the application roles by selecting the application role and then selecting **Remove**. **Note:** You can't delete protected application roles.  
+  9. Select **Next**.
+  10. Configure the web tier policy. Import an existing web tier policy or manually edit the policy in **Simple mode** by completing the fields or in **Advanced mode** by editing a JSON file.
+  11. Add any resources that you want to protect.
+  12. Select **Finish.**
+The application has been added in a deactivated state. 
+  13. Record the **Client ID** and **Client secret** in the **Application added** dialog box.
+To integrate with your confidential application, use this ID and secret as part of your connection settings. The **Client ID** and **Client secret** are equivalent to a credential (for example, an ID and password) that your application uses to communicate with IAM.
+  14. Select **Close.**
+The new application's details page is displayed.
+  15. At the top of the page, to the right of the application name, select **Activate**. 
+  16. Confirm the activation.
+  17. Under the Resources section:
+    1. Select **Consent information** and then add consent information.
+    2. Select **Users** or **Groups** to add users and groups to the app.
+
+
+Was this article helpful?
+YesNo
+

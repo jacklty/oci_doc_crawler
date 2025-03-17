@@ -1,0 +1,13 @@
+Updated 2023-08-15
+# Reserved Network Resources
+On Compute Cloud@Customer, the network infrastructure and system components need many IP addresses and several VLANs for internal operation. It's critical to avoid conflicts with the addresses in use in the customer data center and the CIDR ranges configured in the virtual cloud networks (VCNs).
+These IP address ranges are reserved for internal use by Compute Cloud@Customer:
+Reserved IP Addresses |  Description   
+---|---  
+CIDR blocks in Shared Address Space |  The Shared Address Space, with IP range 100.64.0.0/10, was implemented to connect customer-premises equipment to the core routers of Internet service providers. To allocate IP addresses to the management interfaces and ILOMs (Oracle Integrated Lights Out Manager) of hardware components, two CIDR blocks are reserved for internal use: 100.96.0.0/23 and 100.96.2.0/23.  
+CIDR blocks in Class E address range |  Under the classful network addressing architecture, Class E is the part of the 32-bit IPv4 address space ranging from 240.0.0.0 to 255.255.255.255. At the time, it was reserved for future use, so it can't be used on the public Internet. To accommodate the addressing requirements of all infrastructure networking over the physical 100-Gbit connections, the entire 253.255.0.0/16 subnet is reserved. It is further subdivided into multiple CIDR blocks to group IP addresses by network function or type. The various CIDR blocks within the 253.255.0.0/16 range are used to allocate IP addresses for the Kubernetes containers running the microservices, the virtual switches, routers and gateways enabling the VCN data network, the hypervisors, the Compute Cloud@Customer chassis components, and so on.  
+Link Local CIDR block |  A link-local address belongs to the 169.254.0.0/16 IP range, and is valid only for connectivity within a host's network segment, because the address isn't guaranteed to be unique outside that network segment. Packets with link-local source or destination addresses aren't forwarded by routers. The link-local CIDR block 169.254.239.0/24, and the IP address 169.254.169.254, are reserved for functions such as DNS requests, compute instance metadata transfer, and cloud service endpoints.  
+All VCN traffic – from one VCN to another, and between a VCN and external resources – flows across the 100-Gbit connections and is carried by VLAN 3900. Traffic related to server management is carried by VLAN 3901. All VLANs with higher IDs are also reserved for internal use, and VLAN 1 is the default for untagged traffic. The remaining VLAN range of 2 - 3899 is available for customer use.
+Was this article helpful?
+YesNo
+

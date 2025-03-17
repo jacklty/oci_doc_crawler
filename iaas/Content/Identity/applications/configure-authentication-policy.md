@@ -1,0 +1,44 @@
+Updated 2025-01-14
+# Configuring an SSO Authentication Policy
+Create an authentication policy for each resource you created for your enterprise application.
+An authentication policy defines which authentication method to use to protect your enterprise application's resources, and whether App Gateway adds header variables to the request it forwards to the application.
+  1. Open the **navigation menu** and select **Identity & Security**. Under **Identity** , select **Domains**. 
+  2. Click the name of the identity domain that you want to work in. You might need to change the compartment to find the domain that you want. Then, click **Integrated applications**.
+  3. Select the enterprise application that you want to modify.
+  4. In the **Application details** page, select **SSO configuration** , and then select **Edit SSO configuration**. In the **Authentication policy** section, Check **Audience validation** , **Allow CORS** , or **Require secure cookies** , if needed. 
+     * **Audience validation** : For security reasons, ensure the **Audience validation** checkbox is selected. The audience validation checkbox is used to ensure that the token has the been issued by App Gateway's known issuer, in this case IAM. If you clear audience validation, App Gateway won't validate the audience of the token, which makes the application vulnerable to attacks.
+     * **Allow CORS** : Select to enable Cross-Origin Resource Sharing (CORS) so that applications that run on one identity domain can obtain data from another identity domain.
+     * **Require secure cookies** : If App Gateway is configured in SSL mode (HTTPs), then confirm that **Require secure cookies** is selected. This flag sets the secure header to avoid cookies being used in non-secure HTTP communication. If App Gateway is configured in non-SSL mode (HTTP), then deselect **Require secure cookies**.
+  5. Check **Add managed resources**.
+  6. In the **Add managed resource** window, select the resource for which you want to configure an authentication policy from the list of resources that you created in the **Resources** section or add a managed resource.
+  7. Use the following table to define the **Authentication method** for the resource you have selected:
+Authentication Method |  Description  
+---|---  
+**Basic Auth** |  The **Basic Auth** method performs HTTP Basic authentication. If the request doesn't contain an `Auntication Basic` header, then user's browser will prompt for credentials. The credentials sent in the header are in the `AuthenticationBasic` validated in IAM.  
+**Basic Auth+Logout** |  This method is used to protect the application's resource (URL) that represents the application's logout process. When App Gateway intercepts a request to this resource, the HTTP logout process is initiated. This process deletes any HTTP session cookie created by the **Basic Auth+Session** authentication method. After the logout process finishes, App Gateway forwards the user browser to the requested application's resource. The HTTP logout process doesn't clear any credentials cached by the browser in the current browser session and then the user may not be prompted again for later requests.  
+**Basic Auth+Session** |  Works the same as **Basic Auth**. After the credential is validated, it creates an HTTP session cookie (`ORA_OCIS_CG_BA_SESSION`).  
+**Form or Access Token** |  In this authentication method, App Gateway delegates credentials collection and validation to IAM. If an `Authorization Bearer` header is present in the request, then the authentication is similar to a resource server flow. If a `user-agent` header is present, then a user browser flow takes place. The user browser flow redirects the user browser to IAM for credentials collection and validation, and then creates an OAuth session cookie (`ORA_OCIS_CG_SESSION_*`). If an `Authorization session` header is present in the request and the OAuth session cookie is missing or invalid, then the usual OAuth login flow is suppressed and a `401` HTTP error code will be returned along with a `WWW-Authenticate:                         Bearer error="invalid_session"` header. This is used by applications that may trigger an unwanted login when their requests contain a `user-agent` header, but not an `Authorization Bearer` header, allowing them to handle reauthentication themselves.  
+**Form+Logout** |  This method is used to protect the application's resource (URL) that represents the application's logout process. This resource's URL doesn't need to be exposed by the application, as App Gateway redirects the user browser to the IAM OAuth logout endpoint (`/oauth2/v1/userlogout`), instead of forwarding the request to the application URL. In the **Add Resource** window, the **Post-Logout URL** is the URL which App Gateway redirects the user browser after signing out the user. You can also provide a **Post-Logout State** parameter value to be used by the post-logout URL page of the application.  
+**Multitoken** |  Performs authentication based on the contents of the `Authorization` header of the request:
+     * If the request contains an `Authorization                          Basic` header, then App Gateway handles this authentication as **Basic Auth**.
+     * If the request contains an `Authorization                          Bearer` or `Authorization                          Session` header, App Gateway handles this authentication as **Form or Access Token**.
+     * If the Authorization header is missing or has any other value, then a `401                          Unauthoized` HTTP error is returned.  
+**Multitoken+Fallthrough** |  Same as **Multitoken** , but if the `Authorization` header isn't `Basic`, `Bearer`, or `session`, then instead of presenting the `401 Unauthoized` HTTP error, request App Gateway acts as authentication method was **Basic Auth**.  
+**Anonymous** | 
+     * If a valid OAuth session cookie is present, then the headers configured in the authentication policy are added to the request and the request is forwarded to the application.
+     * If the OAuth session cookie is missing or expired, works the same as the **Public** authentication method. In this case, a `REMOTE_USER` header with value `anonymous` is added to the request.
+For both options, the headers configured in the authentication policy are added to the request, but authentication isn't performed.  
+**Public** |  No authentication is performed. The request is forwarded to the application as is.  
+**Unsupported** |  This method always returns `500 Not                         Supported` HTTP error code. For example, you can use this method to disable access to a protected URL that's available in the application but you don't want users to access it.  
+  8. The authentication method you selected in the previous step is valid for all HTTP Methods (`GET`, `HEAD`, `DELETE`, `PUT`, `OPTIONS`, `CONNECT`, `POST`, or `PATCH`). If you want to specify different authentication methods for HTTP methods (for example, the **Form + Access Token** authentication method for the `GET` HTTP method and the **Multitoken** authentication method for the `POST` HTTP method), then you can do so by using the **Authentication method overrides** menu. Select the **HTTP method** , and then the **Authentication method** you want. If you need to override more than one HTTP method, then repeat this step multiple times.
+  9. If you want to add a header variable to the request so that App Gateway forwards it to the application, select the plus **+** icon for **Headers** , provide the name, and then either select the value for the header variable from the list of user attributes, enter a fixed value, or provide an expression. To add more than one header variable, select the **+** icon for **Headers** multiple times.
+For example, let's suppose the application requires a header variable named `USERLOGGEDIN` to be present in every request so that the application knows the ID of user signed in to IAM. You must add one header variable, enter `USERLOGGEDIN` for the **Name** field, and then either select **User name** from the list or enter `$subject.user.userName` for **Value**.
+**Note**
+You can select a user attribute from the menu or provide an expression using any attribute from IAM's SCIM user schema as header variable value. See [Supported Header Value Expressions for Authentication Policies](https://docs.oracle.com/en-us/iaas/Content/Identity/applications/supported-header-value-expressions-authentication-policies.htm#supported-header-value-expressions-authentication-policies "When you configure enterprise application's authentication policies, you can add header variables to requests forwarded to the application, by selecting a user attribute from a list of predefined user attributes, or by entering an expression.").
+  10. Select **Add managed resource**.
+  11. Select **Save changes**.
+
+
+Was this article helpful?
+YesNo
+

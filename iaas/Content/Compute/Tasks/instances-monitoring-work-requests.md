@@ -1,0 +1,9 @@
+Updated 2024-04-05
+# Troubleshooting Creation Errors by Using Work Requests
+Work requests help you monitor long-running operations such as database backups or the provisioning of compute instances.
+If an operation such as the create instance operation fails, or if the instance state moves directly from provisioning to terminating, use [work requests](https://docs.oracle.com/iaas/Content/General/Concepts/workrequestoverview.htm#viewingwr) to determine where in the workflow the error occurred. Errors can occur because of problems with the configuration or problems with the user data. Synchronous errors occur during the initial call to the Compute API to create the instance. Asynchronous errors occur during the create instance workflow that occurs after the initial API call. Work requests capture asynchronous validation failures. A successful create instance API call that returns an HTTP 200 response might be followed by an asynchronous error during the subsequent create instance workflow.
+The response to the REST API call contains the OCID of the work request in the `opc-work-request-id` header. You can monitor the status of the work request at any time by calling `GetWorkRequest` in the [Work Requests API](https://docs.oracle.com/iaas/api/#/en/workrequests/latest/) and passing in the work request ID found in the `opc-work-request-id` header. If an error occurs during the workflow, you can call `ListWorkRequestErrors` in the Work Requests API and pass in the work request ID to retrieve a list of errors.
+For information about using work requests to troubleshoot errors, see [Work Requests](https://docs.oracle.com/iaas/Content/General/Concepts/workrequestoverview.htm). For detailed information about asynchronous work requests, including how to filter the request response and a sample request and response, see [Asynchronous Work Requests](https://docs.oracle.com/iaas/Content/API/Concepts/workrequests.htm).
+Was this article helpful?
+YesNo
+

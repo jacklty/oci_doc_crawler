@@ -1,0 +1,30 @@
+Updated 2023-05-15
+## Creating a Virtual Cloud Network 🔗 
+Create a virtual cloud network (VCN) that adheres to the security rules and IP address requirements.
+### Using the Console 🔗 
+Use the Console to create a virtual cloud network (VCN) that enables you to connect to a compute instance and interact with a DB system.
+This task requires the following: 
+  * You do not have an existing VCN with a private and public regional subnet present in your tenancy.
+
+
+Do the following to create a VCN:
+  1. Open the navigation menu, select **Networking,** and then select **Virtual cloud networks**.
+  2. In the **Virtual cloud networks** page, click **Start VCN wizard**.
+  3. In the **Start VCN wizard** dialog box, select **Create VCN with internet connectivity** , and click **Start VCN wizard.**
+The VCN wizard creates a VCN, public and private regional subnets, and internet, service, and NAT gateways.
+  4. In the **Create a VCN with internet connectivity** panel, provide the following information: 
+    1. **Basic information** : Enter the **VCN name** , and select the **Compartment** where you want to create the VCN and its components such as private and public subnet, internet gateway, NAT gateway, and service gateway.
+    2. **Configure VCN** : Specify the CIDR block for the VCN in **VCN IPv4 CIDR block**. Specify a value between /16 and /30. For example, 10.0.0.0/16 and 10.0.0.0/30. Accept the default values in the other fields. If you plan to use VCN DNS or a third-party DNS, select the **Use DNS hostnames in this VCN** check box for instance hostname assignment.
+**Note** It is recommended to accept the default values of the VCN and subnet configuration. Also, you cannot change these values of the configuration later. 
+    3. **Configure public subnet** : Specify the public subnet CIDR block in **IPv4 CIDR block**. For example, 10.0.0.0/24. The public subnet CIDR block must not overlap with the private subnet CIDR block. 
+    4. **Configure private subnet** : Specify the private subnet CIDR block in **IPv4 CIDR block**. For example, 10.0.1.0/24. The private subnet CIDR block must not overlap with the public subnet CIDR block.
+    5. **Tags** : Click **Show tagging options** to open **Tags**. Specify or select the **Tag namespace** , **Tag key** , and **Tag value**.
+  5. Click **Next**.
+  6. Review the settings, and click **Create**.
+  7. To view the VCN details, click **View VCN**.
+
+
+A virtual cloud network is created. Now add ingress rules to allow traffic from authorized IP addresses. See [Adding Ingress Rules for a Compute Instance, Bastion Session or VPN Connection](https://docs.oracle.com/en-us/iaas/mysql-database/doc/adding-ingress-rules-compute-instance-bastion-session-or-vpn-connection.html#GUID-A3B88045-F20B-45F4-8EF9-0411BB308958 "If you are connecting to a DB system using a compute instance, Bastion session, or VPN connection, add ingress rules to the security list of the private subnet."). 
+Was this article helpful?
+YesNo
+

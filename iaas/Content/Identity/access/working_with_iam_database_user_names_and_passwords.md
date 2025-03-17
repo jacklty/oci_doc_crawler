@@ -1,0 +1,25 @@
+Updated 2024-09-30
+# Working with IAM Database User Names and Passwords
+Database end users can easily use IAM database passwords because they can continue to use a well-known authentication method to access the database. You can access database passwords that you manage through your OCI profile after you successfully authenticate to OCI.
+Before users can access or manage their database password, IAM administrators can create an extra layer of protection by enforcing multifactor authentication using [Managing Multifactor Authentication](https://docs.oracle.com/en-us/iaas/Content/Identity/mfa/understand-multi-factor-authentication.htm#understand-multi-factor-authentication "Multifactor Authentication \(MFA\) is a method of authentication that requires the use of more than one factor to verify a user's identity to access an identity domain in IAM."). For example, this can be a FIDO authenticator, or by pushing notifications through authenticator applications. 
+## IAM Database Password Security 🔗 
+Using IAM database usernames and IAM database passwords to access databases improves security because they allow IAM administrators to centrally manage users and user access to database passwords within IAM instead of locally in each database. When a user leaves an organization, their IAM account is suspended and therefore, their access to all databases are automatically suspended. This method removes the possibility of unauthorized accounts being left on database servers after a user has left. For more information, see [IAM Database Passwords](https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/usercredentials.htm#usercredentials_iam_db_pwd "Manage your IAM database passwords overview."). See [Authenticating and Authorizing IAM Users for Oracle DBaaS Databases](https://docs.oracle.com/en/database/oracle/oracle-database/23/dbseg/authenticating-and-authorizing-iam-users-oracle-dbaas-databases.html#GUID-466A8800-5AF1-4202-BAFF-5AE727D242E8) in the Oracle Database Security Guide for information about how IAM users authenticate and authorize to OCI databases.
+## IAM Database User Names 🔗 
+If your OCI IAM database username is longer than 128 bytes, you must set a different database username and a database password that's less than 128 bytes. IAM enforces the uniqueness of database usernames within a tenancy. The database user name isn't case-sensitive and has the same allowable characters as an IAM user name (ASCII letters, numerals, hyphens, periods, underscores, +, and @)). This is more restrictive than local database usernames, which are governed by the character set of the database. See [Database Object Names and Qualifiers](https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/Database-Object-Names-and-Qualifiers.html) for more information. 
+To create, change, and delete IAM database user names, see [Working with IAM Database User Names](https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/usercredentials.htm#iam_database_user_names "You can manage your own IAM database user name with the Console, including creating, changing, and deleting it.").
+## Alternate IAM Database User Names
+You can create an alternate IAM database user name that contains only letters and numbers, doesn't include special characters, and can be shorter than regular IAM database user names. 
+You can create an alternate IAM database user name:
+  * If your user name is too long or hard to type
+  * To make signing in easier with a user name that doesn't include special characters
+
+
+## **IAM Database Password Specifications** 🔗 
+The IAM database password complexity uses almost the same rules supported in IAM for Console passwords (no double quotes ["] in IAM passwords). For details, see [Creating an IAM database password](https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/usercredentials.htm#usercredentials_topic_creating_a_database_password "You can manage your own IAM database password with the Console, including creating, changing and deleting it.").
+## **Failed Login Lockouts** 🔗 
+For information about failed logins, see [IAM Database Password Lockouts](https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/usercredentials.htm#usercredentials_topic_password_lockouts "A user's account gets locked if the user encounters 10 consecutive failed sign-in attempts.").
+## **Password Rollovers** 🔗 
+Applications have a password in a wallet or other secure mechanism and in the database. When changing a database password, you also need to change the password in the application wallet. You normally do this during application downtime. However, having a second password allows you to change passwords without application downtime. Since both passwords are usable, the application admin can swap passwords in the application wallet files at their convenience, and can remove the old password from IAM later. This is independent of the database gradual password rollover status in the database. The database still reflects open status, that's, not open and in rollover.
+Was this article helpful?
+YesNo
+

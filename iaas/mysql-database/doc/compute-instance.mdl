@@ -1,0 +1,135 @@
+Updated 2023-05-30
+## Compute Instance 🔗 
+You cannot connect directly from a remote IP to the endpoint of a DB system. Use SSH or RDP to connect to a compute instance, and from the compute instance use MySQL Shell, MySQL Client or MySQL Workbench to connect to the DB system.
+  * [Connecting to a Compute Instance](https://docs.oracle.com/en-us/iaas/mysql-database/doc/compute-instance.html#GUID-7CC4A323-51D7-4E30-B519-293CE829EC39 "Use SSH or RDP, depending on the platform, to connect to a compute instance.")
+  * [Connecting to a DB System](https://docs.oracle.com/en-us/iaas/mysql-database/doc/compute-instance.html#GUID-FF6434EE-524B-4FB5-8166-6A93A80CCF3B "Use MySQL Shell, MySQL Client, or MySQL Workbench from a compute instance to connect to a DB system.")
+
+
+### Connecting to a Compute Instance 🔗 
+Use SSH or RDP, depending on the platform, to connect to a compute instance.
+#### Using the CLI 🔗 
+Use the command-line interface to connect to a compute instance.
+This task requires the following: 
+  * A running VCN with internet connectivity. See [Creating a Virtual Cloud Network](https://docs.oracle.com/en-us/iaas/mysql-database/doc/creating-virtual-cloud-network.html#GUID-A5D4A49C-53AD-4A6B-978A-5A7435E73762 "Create a virtual cloud network \(VCN\) that adheres to the security rules and IP address requirements."). 
+  * A running MySQL DB system attached to the VCN. Note the IP address of the MySQL endpoint in the DB system, and the administrator username and password. To find the IP Address, see [Resource: Endpoints](https://docs.oracle.com/en-us/iaas/mysql-database/doc/viewing-db-system-details.html#GUID-06F1A98D-2541-4868-B0B8-B2C7601BA741 "The Endpoints resource on the DB system details page shows the details and current state of the DB system's read/write endpoint, which clients and connectors can use to connect to the MySQL instance."). 
+  * A running compute instance (Oracle Linux is used in the task) attached to a public subnet on the same VCN as the MySQL DB system. Note the public IP address of the compute instance. The SSH port, 22, is added to the public subnet by default. It is recommended you add an ingress rule for port 33060, which is the default port for MySQL Shell. If that port is not available, MySQL Shell connects to port 3306. If you have configured alternative ports, include the port number in your connection string. See [Overview of Networking](https://docs.oracle.com/en-us/iaas/mysql-database/doc/overview-networking.html#GUID-374E351D-8D4C-431B-8C03-CEED86814F81 "MySQL DB system endpoints are not public. To connect to a DB system, create a virtual cloud network \(VCN\) and add ingress rules. You can then use a compute instance, a Bastion session, or a VPN connection to connect to the DB system."). 
+
+
+  1. Set the file permissions so that only you can read the file:
+```
+chmod 400 <PrivateKeyFile>
+```
+
+<PrivateKeyFile>: Specify the full path and name of the file that contains the private key associated with the instance you want to access. 
+  2. SSH into the compute instance from your local machine using the public IP address of the compute instance.
+```
+ssh -i <PrivateKeyFile> <Username>@<ComputePublicIpAddress>
+```
+
+     * <PrivateKeyFile>: Specify the full path and name of the file that contains the private key associated with the instance you want to access. 
+     * <Username>: Specify the default username for the instance. For Oracle Linux and CentOS images, the default username is `opc`. For Ubuntu images, the default username is `ubuntu`. 
+     * <ComputePublicIpAddress>: Specify the IP address of the instance that you retrieved from the Console. 
+
+
+You are now connected to the compute instance.
+**Related Topics**
+  * [Creating an Instance](https://docs.oracle.com/iaas/Content/Compute/Tasks/launchinginstance.htm)
+  * [Connecting to an Instance](https://docs.oracle.com/iaas/Content/Compute/Tasks/accessinginstance.htm)
+
+
+### Connecting to a DB System 🔗 
+Use MySQL Shell, MySQL Client, or MySQL Workbench from a compute instance to connect to a DB system.
+  * [Using MySQL Shell](https://docs.oracle.com/en-us/iaas/mysql-database/doc/compute-instance.html#GUID-70023ABD-5418-4C1F-975F-F3E2ABC0F93E "Use MySQL Shell on a compute instance to connect to the endpoint of the DB system.")
+  * [Using MySQL Client](https://docs.oracle.com/en-us/iaas/mysql-database/doc/compute-instance.html#GUID-1AEF626B-F504-4F04-8721-65E4BC35FED7 "Use MySQL Client on a compute instance to connect to the endpoint of the DB system.")
+  * [Using MySQL Workbench](https://docs.oracle.com/en-us/iaas/mysql-database/doc/compute-instance.html#GUID-C507A054-3AA4-4E33-9060-1ABBEC5A4FCC "Use MySQL Workbench on a compute instance to connect to the endpoint of the DB system.")
+
+
+#### Using MySQL Shell 🔗 
+Use MySQL Shell on a compute instance to connect to the endpoint of the DB system. 
+This task requires the following: 
+  * A running VCN with internet connectivity. See [Creating a Virtual Cloud Network](https://docs.oracle.com/en-us/iaas/mysql-database/doc/creating-virtual-cloud-network.html#GUID-A5D4A49C-53AD-4A6B-978A-5A7435E73762 "Create a virtual cloud network \(VCN\) that adheres to the security rules and IP address requirements."). 
+  * A running MySQL DB system attached to the VCN. Note the IP address of the MySQL endpoint in the DB system, and the administrator username and password. To find the IP Address, see [Resource: Endpoints](https://docs.oracle.com/en-us/iaas/mysql-database/doc/viewing-db-system-details.html#GUID-06F1A98D-2541-4868-B0B8-B2C7601BA741 "The Endpoints resource on the DB system details page shows the details and current state of the DB system's read/write endpoint, which clients and connectors can use to connect to the MySQL instance."). 
+  * A running and connected compute instance (Oracle Linux is used in the task) attached to a public subnet on the same VCN as the MySQL DB system. Note the public IP address of the compute instance. The SSH port, 22, is added to the public subnet by default. It is recommended you add an ingress rule for port 33060, which is the default port for MySQL Shell. If that port is not available, MySQL Shell connects to port 3306. If you have configured alternative ports, include the port number in your connection string. See [Overview of Networking](https://docs.oracle.com/en-us/iaas/mysql-database/doc/overview-networking.html#GUID-374E351D-8D4C-431B-8C03-CEED86814F81 "MySQL DB system endpoints are not public. To connect to a DB system, create a virtual cloud network \(VCN\) and add ingress rules. You can then use a compute instance, a Bastion session, or a VPN connection to connect to the DB system."). 
+
+
+Do the following to connect to the DB system:
+  1. Install MySQL Shell on the compute instance using the following command:
+```
+sudo yum install mysql-shell
+```
+
+See [Installing MySQL Shell on Linux](https://dev.mysql.com/doc/mysql-shell/8.0/en/mysql-shell-install-linux-quick.html). 
+  2. Start MySQL Shell and connect to the endpoint of the DB system using the following command:
+```
+mysqlsh <Username>@<DBSystemEndpointIPAddress> 
+```
+
+  3. Enter your password when you get the following response:
+```
+Please provide the password for <DBSystemEndpointIPAddress>:
+```
+
+This command starts a global session. By default, MySQL Shell attempts to connect to port 33060, and if the port is not available, it connects to port 3306. 
+
+
+#### Using MySQL Client 🔗 
+Use MySQL Client on a compute instance to connect to the endpoint of the DB system. 
+This task requires the following: 
+  * A running VCN with internet connectivity. See [Creating a Virtual Cloud Network](https://docs.oracle.com/en-us/iaas/mysql-database/doc/creating-virtual-cloud-network.html#GUID-A5D4A49C-53AD-4A6B-978A-5A7435E73762 "Create a virtual cloud network \(VCN\) that adheres to the security rules and IP address requirements."). 
+  * A running MySQL DB system attached to the VCN. Note the IP address of the MySQL endpoint in the DB system, and the administrator username and password. To find the IP Address, see [Resource: Endpoints](https://docs.oracle.com/en-us/iaas/mysql-database/doc/viewing-db-system-details.html#GUID-06F1A98D-2541-4868-B0B8-B2C7601BA741 "The Endpoints resource on the DB system details page shows the details and current state of the DB system's read/write endpoint, which clients and connectors can use to connect to the MySQL instance."). 
+  * A running and connected compute instance (Oracle Linux is used in the task) attached to a public subnet on the same VCN as the MySQL DB system. Note the public IP address of the compute instance. The SSH port, 22, is added to the public subnet by default. See [Overview of Networking](https://docs.oracle.com/en-us/iaas/mysql-database/doc/overview-networking.html#GUID-374E351D-8D4C-431B-8C03-CEED86814F81 "MySQL DB system endpoints are not public. To connect to a DB system, create a virtual cloud network \(VCN\) and add ingress rules. You can then use a compute instance, a Bastion session, or a VPN connection to connect to the DB system."). 
+
+
+Do the following to connect to the DB system:
+  1. Install the MySQL Client on the compute instance using the following command:
+```
+sudo yum install mysql
+```
+
+  2. Connect to your DB system using the MySQL Client.
+```
+mysql --host <DBSystemEndpointIPAddress> -u <Username> -p 
+```
+
+  3. Enter your password when you get the following response:
+```
+Enter password:
+```
+
+
+
+#### Using MySQL Workbench 🔗 
+Use MySQL Workbench on a compute instance to connect to the endpoint of the DB system.
+This task requires the following: 
+  * A running VCN with internet connectivity. See [Creating a Virtual Cloud Network](https://docs.oracle.com/en-us/iaas/mysql-database/doc/creating-virtual-cloud-network.html#GUID-A5D4A49C-53AD-4A6B-978A-5A7435E73762 "Create a virtual cloud network \(VCN\) that adheres to the security rules and IP address requirements."). 
+  * A running compute instance (Oracle Linux is used in the task) attached to a public subnet on the same VCN as the MySQL DB system. Note the public IP address of the compute instance. See [Overview of Networking](https://docs.oracle.com/en-us/iaas/mysql-database/doc/overview-networking.html#GUID-374E351D-8D4C-431B-8C03-CEED86814F81 "MySQL DB system endpoints are not public. To connect to a DB system, create a virtual cloud network \(VCN\) and add ingress rules. You can then use a compute instance, a Bastion session, or a VPN connection to connect to the DB system."). 
+  * A SSH key-pair. 
+**Note** MySQL Workbench does not support PuTTY-generated keys. If you use PuTTYgen to generate your SSH key pair, convert your private key to the OpenSSH format using the Conversion utility of PuTTYgen. 
+
+
+Do the following to connect to the endpoint of the DB system:
+  1. Launch MySQL Workbench. 
+  2. On the home page, click the **+** sign besides **MySQL Connections**. 
+  3. In the **Setup New Connection** dialog box, provide the following details:
+     * **Connection Name** : Specify a name of the connection. 
+     * **Connection Method** : Select **Standard TCP/IP over SSH**. 
+  4. In the **Parameters** tab, provide the following details:
+     * **SSH Hostname** : Specify the public IP address of the compute instance. 
+     * **SSH Username** : Specify `opc`. 
+     * **SSH Key File** : Specify the path to your SSH private key. 
+     * **MySQL Hostname** : Specify the IP address of the endpoint of your DB system. 
+     * **MySQL Server Port** : Specify the port the MySQL endpoint is listening on. 
+     * **Username** : Specify the username you defined when creating the DB system. 
+     * **Password** : Specify the password you defined when creating the DB system. 
+  5. Click **Test Connection** to confirm that the connection details are valid.
+  6. Click **OK**.
+
+
+**Related Topics**
+  * [MySQL Workbench Reference Manual](https://dev.mysql.com/doc/workbench/en/)
+  * [Standard TCP/IP over SSH Connection Method](https://dev.mysql.com/doc/workbench/en/wb-mysql-connections-methods-ssh.html)
+
+
+Was this article helpful?
+YesNo
+

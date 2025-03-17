@@ -1,0 +1,21 @@
+Updated 2024-08-14
+# Defining Kubernetes Services of Type LoadBalancer
+_Find out how to create different types of load balancer to distribute traffic between the nodes of a cluster you've created using Kubernetes Engine (OKE)._
+**Note**
+The ability to create new fixed-shape (dynamic) load balancers has reached End-of-Life. Therefore, Oracle recommends you implement Kubernetes services of type LoadBalancer as cost-efficient flexible load balancers rather than as fixed-shape (dynamic) load balancers (see [Specifying Flexible Load Balancer Shapes](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengcreatingloadbalancers-subtopic.htm#flexible)). Existing fixed-shape (dynamic) load balancers will continue to be supported.
+**Note**
+The Oracle Cloud Infrastructure load balancers and network load balancers that Kubernetes Engine provisions for Kubernetes services of type LoadBalancer appear in the Console. However, do not use the Console (or the Oracle Cloud Infrastructure CLI or API) to modify these load balancers and network load balancers. Any modifications you make will either be reverted by Kubernetes Engine or will conflict with its operation and possibly result in service interruption. Instead, to change load balancer or network load balancer properties, modify the appropriate annotation in the manifest and re-apply the manifest.
+**Note**
+When load balancing across virtual nodes (as opposed to managed nodes), load balancing is actually across pods running on the virtual nodes rather than across the virtual nodes themselves.
+When you define a Kubernetes service of type LoadBalancer to expose an application to the Internet or to a local network, you can specify how Kubernetes Engine implements the service of type LoadBalancer:
+  * **Using an Oracle Cloud Infrastructure load balancer, set up in the Oracle Cloud Infrastructure Load Balancer service.**
+An OCI load balancer is an OSI layer 4 (TCP) and layer 7 (HTTP) proxy, which supports features such as SSL termination and advanced HTTP routing policies. It provides the utmost flexibility, with responsive scaling up and down. You choose a custom minimum bandwidth and an optional maximum bandwidth, both between 10 Mbps and 8,000 Mbps. The minimum bandwidth is always available and provides instant readiness for your workloads. For more information about OCI load balancers, see [Overview of Load Balancer](https://docs.oracle.com/iaas/Content/Balance/Concepts/balanceoverview.htm).
+For more information about provisioning an OCI load balancer for a Kubernetes service of type LoadBalancer, see [Provisioning OCI Load Balancers for Kubernetes Services of Type LoadBalancer](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengcreatingloadbalancers-subtopic.htm#contengcreatingloadbalancers_subtopic "Find out how to provision an OCI load balancer for a Kubernetes service of type LoadBalancer using Kubernetes Engine \(OKE\).").
+  * **Using an Oracle Cloud Infrastructure network load balancer, set up in the Oracle Cloud Infrastructure Network Load Balancer service.**
+An OCI network load balancer is a non-proxy load balancing solution that performs pass-through load balancing of OSI layer 3 and layer 4 (TCP/UDP/ICMP) workloads. It offers an elastically scalable regional virtual IP (VIP) address that can scale up or down based on client traffic with no minimum or maximum bandwidth configuration requirement. It also provides the benefits of flow high availability, source and destination IP address, and port preservation. For more information about OCI network load balancers, see [Overview of Flexible Network Load Balancer](https://docs.oracle.com/iaas/Content/NetworkLoadBalancer/overview.htm).
+For more information about provisioning an OCI network load balancer for a Kubernetes service of type LoadBalancer, see [Provisioning OCI Network Load Balancers for Kubernetes Services of Type LoadBalancer](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengcreatingnetworkloadbalancers.htm#contengcreatingnetworkloadbalancers "Find out how to provision an OCI network load balancer for a Kubernetes service of type LoadBalancer using Kubernetes Engine \(OKE\).").
+
+
+Was this article helpful?
+YesNo
+

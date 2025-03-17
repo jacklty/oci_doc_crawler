@@ -1,0 +1,11 @@
+Updated 2024-08-14
+# Working with Virtual Nodes
+_Find out about virtual nodes, the differences between virtual nodes and managed nodes, and how to create virtual nodes using Kubernetes Engine (OKE)._
+Virtual nodes provide a serverless Kubernetes experience, enabling you to run containerized applications at scale without the operational overhead of managing, scaling, upgrading, and troubleshooting the node infrastructure. Virtual nodes provide granular pod-level elasticity and pay-per-use pricing. As a result, you can scale deployments without taking into consideration the cluster's capacity, simplifying the execution of scalable workloads such as high-traffic web applications and data-processing jobs. You create virtual nodes by creating virtual node pools in enhanced clusters. 
+By contrast, managed nodes are OCI Compute instances running in your tenancy that you control and configure, with a shared operational responsibility. Kubernetes Engine provisions and updates the Kubernetes software on managed nodes. For a detailed comparison of virtual nodes and managed nodes, see [Comparing Virtual Nodes with Managed Nodes](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengcomparingvirtualwithmanagednodes_topic.htm#contengusingvirtualormanagednodes_topic "Find out about the differences between the virtual nodes and managed nodes you can create using Kubernetes Engine \(OKE\).").
+Virtual nodes provide you with the flexibility to satisfy application requirements. You can control the Kubernetes pod placement based on an availability needs, selecting the Compute processor shape, CPU, and memory most suited for an application. Hypervisor-level isolation for pods enables you to run any type of application on virtual nodes, including untrusted workloads. 
+Kubernetes Engine with virtual nodes delivers seamless upgrades of Kubernetes clusters. The Kubernetes software is upgraded and security patches are applied while respecting application availability requirements.
+Virtual nodes enable you to optimize the cost of running Kubernetes workloads. You pay for the exact compute resources consumed by each Kubernetes pod instead of paying for whole servers that might have unused capacity.
+Was this article helpful?
+YesNo
+

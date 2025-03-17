@@ -1,0 +1,35 @@
+Updated 2023-06-28
+## Adding Ingress Rules for a Compute Instance, Bastion Session or VPN Connection 🔗 
+If you are connecting to a DB system using a compute instance, Bastion session, or VPN connection, add ingress rules to the security list of the _private_ subnet. 
+### Using the Console 🔗 
+Use the Console to add ingress rules to a virtual cloud network (VCN).
+This task requires the following: 
+  * A properly configured VCN. See [Creating a Virtual Cloud Network](https://docs.oracle.com/en-us/iaas/mysql-database/doc/creating-virtual-cloud-network.html#GUID-A5D4A49C-53AD-4A6B-978A-5A7435E73762 "Create a virtual cloud network \(VCN\) that adheres to the security rules and IP address requirements."). 
+
+
+Do the following to add ingres rules:
+  1. Open the navigation menu, select **Networking,** and then select **Virtual cloud networks**.
+  2. Select the compartment from the **List scope**.
+  3. From the list of VCNs, click the name of the VCN to open the **Virtual cloud network details** page. 
+  4. In the **Virtual cloud network details** page, select **Security lists** from the **Resources** section.
+  5. From the list of security lists, click **Security list for private subnet- <VCN>**. 
+  6. In the **Security list details** page, click **Add ingress rules**.
+  7. In the **Add ingress rules** dialog box, provide the following information:
+     * **Stateless** : Do not select. 
+     * **Source type** : Select CIDR. 
+     * **Source CIDR** : Specify the CIDR of the _public_ subnet. If required, you can narrow down the range to more specific IP addresses. For example: 
+       * 10.0.0.0/8: Allows traffic from 10.0.0.0 to 10.255.255.255 IP addresses, that is, a total of 16,777,216 IP addresses.
+       * 10.0.0.0/16: Allows traffic from 10.0.0.0 to 10.0.255.255 IP addresses, that is, a total of 65,536 IP addresses.
+       * 10.0.0.0/24: Allows traffic from 10.0.0.0 to 10.0.0.255 IP addresses, that is, a total of 256 IP addresses.
+       * 10.0.2.24/32: Allows traffic from 10.0.2.24 IP address only.
+     * **IP protocol:** Select TCP. 
+     * **Source port range** : Leave it blank. 
+     * **Destination port range** : Specify the port to which the DB system listens. The default value for MySQL Classic is 3306 and for MySQL X Protocol is 33060. To add multiple destination ports simultaneously, add them as a comma-separated list. For example, to add ingress rules for ports 3306 and 33060 simultaneously, enter `3306,33060`. 
+     * **Description** : Add a descriptive string for the ingress rules. 
+  8. Click **Add ingress rules**.
+
+
+The ingress rule is added to the security list of the subnet.
+Was this article helpful?
+YesNo
+

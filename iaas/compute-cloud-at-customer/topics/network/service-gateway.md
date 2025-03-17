@@ -1,0 +1,10 @@
+Updated 2024-12-16
+# Service Gateways
+On Compute Cloud@Customer, a VCN can have only one service gateway. You create a service gateway in the context of a specific VCN, so the gateway is automatically attached to that VCN upon creation. A service gateway allows traffic to and from all subnets at the time of creation. There's no mechanism to block or disable this traffic.
+Certain services, such as the Object Storage service, are exposed internally over a conceptual _Services Network_. Normally, these services would use public IP addresses that can be reached over a public network – or in a public cloud model, over the internet. Instead, the purpose of a service gateway is to enable a VCN to privately access the services in the Services Network, meaning resources in a private subnet, within a tightened down VCN with no external access, can still connect to those services.
+In Compute Cloud@Customer, these services are implemented at the infrastructure level through the management node cluster. Technically, the service endpoints, which are fully qualified domain names, are reachable from the entire on-premises network by default. This means the service gateway has no real function. Specifically for private cloud use, there's no need to configure a service gateway and associated route rules to enable private access to the service endpoints. However, to maintain compatibility with Oracle Cloud Infrastructure, the concept of a service gateway does exist.
+The service gateway uses a service CIDR label, which is a string that represents the endpoints for the service or group of services of interest. This means that you don't have to know the specific endpoints. If the service's endpoint changes in the future, you don't need to make any adjustments. You use the service CIDR label when you configure the service gateway. You can create the service gateway and configure route rules involving a _"Service CIDR Block"_. However, remember they serve no purpose other than compatibility.
+Security rules aren't implemented for service gateways.
+Was this article helpful?
+YesNo
+

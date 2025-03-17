@@ -1,0 +1,119 @@
+Updated 2024-11-26
+## Consolidate Autonomous Database Instances Using Elastic Pools  🔗 
+Use an elastic pool to consolidate your Autonomous Database instances, in terms of their allocation of compute resources, and to provide up to 87% cost savings. 
+Elastic pools help you improve operating efficiency and reduce costs by bringing all of your databases to the Cloud. This also supports consolidating resources and simplifying administration and operations by using Autonomous Database. When you need a large number of databases, that can scale up and down elastically without downtime, you can benefit by creating and using elastic pools. 
+When you create an elastic pool you select a pool size from a predefined set of pool sizes. Pool size determines how much you pay for compute as well as how many ECPUs you can provision in a given pool.
+**Note** Elastic pools are only available for Autonomous Database instances that use the ECPU compute model without Autonomous Data Guard. 
+  * [About Elastic Pools](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-477B8EE3-CD0A-42F3-9D47-2F44751172D9)
+  * [Benefits of Using Elastic Pools](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-A4086713-4B66-4EA1-A844-FB88B8413F88)
+  * [Requirements to Create an Elastic Pool](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-12FFA266-655D-4380-AB27-A3045168F2E0)
+  * [Requirements to Join an Elastic Pool](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-010E4EBA-3AC6-43CA-B936-F4EDAA0E85BF)
+  * [Pool Leader and Member Instance ECPU Allocation](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-7AF89D74-538A-4206-A769-5091E1A1909D)
+  * [Pool Capacity for an Elastic Pool](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-F8612322-C8CF-4B25-ACF7-90181FB20799)
+  * [Elastic Pool Leader Operations](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-49C868D7-A2FC-441E-BF63-BCF896769A67)
+  * [Elastic Pool Member Operations](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-DA336197-500B-47A7-A2D7-2707947C85CA)
+
+
+**Parent topic:** [Compute Management](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/compute-management.html)
+### About Elastic Pools 🔗 
+There are several terms to use when you work with elastic pools: 
+  * **Pool Leader:** The Autonomous Database instance that creates an elastic pool. 
+  * **Pool Member:** An Autonomous Database instance that is added to an elastic pool. 
+  * **Pool Size:** A value you set when creating an elastic pool. The pool size must be one of the available elastic pool shapes. 
+  * **Pool Shape:** When you create an elastic pool, you select a pool shape from among the valid pool sizes. The shape must have one of 128, 256, 512, 1024, 2048, or 4096 ECPUs. 
+  * **Pool Capacity:** The maximum number of ECPUs that an elastic pool can use. It is four times (x4) the pool size. 
+
+
+The following apply with elastic pools:
+  * Provisioning a pool leader or a member is subject to service limits enforced at the tenancy or compartment levels.
+  * Starting and stopping a pool member database does not depend on the pool leader's state. You can independently stop and start the databases part of an elastic pool, including the pool leader and members.
+  * In an elastic pool, the pool leader's licensing selections determine the license requirements for the entire pool. That is, as long as an Autonomous Database is a member of an elastic pool, its license selections do not apply, and they come into effect only after it leaves the elastic pool. 
+
+
+**Parent topic:** [Consolidate Autonomous Database Instances Using Elastic Pools](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-75F3DACD-572F-4B5B-BBC3-F2FF5A1ED928 "Use an elastic pool to consolidate your Autonomous Database instances, in terms of their allocation of compute resources, and to provide up to 87% cost savings.")
+### Benefits of Using Elastic Pools 🔗 
+Elastic pools provide the following benefits. They:
+  * Enable operating with a fixed budget for a group of databases while delivering performance elasticity for each individual database.
+  * Allow for easy migration from on-premise Oracle environments that include oversubscription to provide a cost-effective way to move to an Autonomous Database. 
+  * Support SaaS vendors with a large number of individual customer databases.
+  * Provide resources for using a microservices architecture, where the ability to supply a large number of databases is required.
+  * The pool members in an elastic pool are not billed individually (the pool leader is billed based on the pool shape). You can allocate additional ECPUs per instance for pool members without worrying about the cost associated with the ECPU usage for the individual members. 
+  * Autonomous Database memory allocation is directly correlated with the ECPU count, so selecting a greater number of ECPUs for instance allows you to run with more memory without paying for the additional resources. This means using a larger number of ECPUs per instance will enable you to use more memory per instance, where the cost is based on the pool shape and not on an individual instance's ECPU count.
+
+
+**Parent topic:** [Consolidate Autonomous Database Instances Using Elastic Pools](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-75F3DACD-572F-4B5B-BBC3-F2FF5A1ED928 "Use an elastic pool to consolidate your Autonomous Database instances, in terms of their allocation of compute resources, and to provide up to 87% cost savings.")
+### Requirements to Create an Elastic Pool 🔗 
+The following are the requirements for an Autonomous Database instance to create an elastic pool and become a pool leader: 
+  * The instance must use the ECPU compute model without Autonomous Data Guard.
+  * The instance must be an Autonomous Database with Autonomous Transaction Processing workload type. This only applies to the pool leader. An elastic pool can hold a mix of databases with Autonomous Transaction Processing and Autonomous Data Warehouse workloads. 
+  * Auto scaling must be disabled.
+  * The instance must not be a member of an existing elastic pool.
+  * The maximum allowed individual ECPU count for an Autonomous Database instance that creates an elastic pool is 4 times the pool size specified when you create the pool. 
+  * The instance that creates an elastic pool is subject to tenancy limits. To create an elastic pool, you must have a sufficient number of ECPUs available, below the tenancy limit, to accommodate the size of the elastic pool.
+
+
+**Parent topic:** [Consolidate Autonomous Database Instances Using Elastic Pools](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-75F3DACD-572F-4B5B-BBC3-F2FF5A1ED928 "Use an elastic pool to consolidate your Autonomous Database instances, in terms of their allocation of compute resources, and to provide up to 87% cost savings.")
+### Requirements to Join an Elastic Pool 🔗 
+The following are the requirements for an Autonomous Database instance to join an elastic pool: 
+  * The instance must use the ECPU compute model without Autonomous Data Guard.
+  * An elastic pool can contain Autonomous Database instances with Autonomous Transaction Processing and Autonomous Data Warehouse workload types. 
+  * Auto scaling must be disabled.
+  * The instance must not be a member of an existing elastic pool.
+  * The available pool capacity is the maximum allowed individual ECPU count for an Autonomous Database instance. When an instance's ECPU count is greater than the available pool capacity, it is not allowed to join that elastic pool. 
+
+
+**Parent topic:** [Consolidate Autonomous Database Instances Using Elastic Pools](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-75F3DACD-572F-4B5B-BBC3-F2FF5A1ED928 "Use an elastic pool to consolidate your Autonomous Database instances, in terms of their allocation of compute resources, and to provide up to 87% cost savings.")
+### Pool Leader and Member Instance ECPU Allocation 🔗 
+When an Autonomous Database instance is part of an elastic pool: 
+  * The minimum allowed individual ECPU allocation for an instance is 1 ECPU.
+  * Increments of 1 ECPU are allowed for individual Autonomous Database instance ECPU allocation. 
+
+
+**Parent topic:** [Consolidate Autonomous Database Instances Using Elastic Pools](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-75F3DACD-572F-4B5B-BBC3-F2FF5A1ED928 "Use an elastic pool to consolidate your Autonomous Database instances, in terms of their allocation of compute resources, and to provide up to 87% cost savings.")
+### Pool Capacity for an Elastic Pool 🔗 
+An elastic pool has a pool capacity of 4 times the pool size. For example, a pool with pool size of 128 ECPUs can hold up to 512 ECPUs for its leader and the members.
+The following are examples of Autonomous Database instances that could be in an elastic pool with a pool size of 128 and a pool capacity of 512 ECPUs: 
+  * Each of these are valid for pool members in an elastic pool with a pool size of 128 ECPUs: 
+    * 1 instance with 512 ECPUs, for a total of 512 ECPUs
+    * 128 instances with 4 ECPUs, for a total of 512 ECPUs
+    * 256 instances with 2 ECPUs, for a total of 512 ECPUs
+  * Similarly, each of the following are valid for pool members in an elastic pool with a pool size of 128 ECPUs: 
+    * 1 instance with 128 ECPUs, 2 instances with 64 ECPUs, 32 instances with 4 ECPUs, and 64 instances with 2 ECPUs, for a total of 512 ECPUs
+    * 256 instances with 1 ECPU, 64 instances with 2 ECPUs, for a total of 384 ECPUs, which is less than the pool capacity of 512 ECPUs.
+
+
+**Parent topic:** [Consolidate Autonomous Database Instances Using Elastic Pools](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-75F3DACD-572F-4B5B-BBC3-F2FF5A1ED928 "Use an elastic pool to consolidate your Autonomous Database instances, in terms of their allocation of compute resources, and to provide up to 87% cost savings.")
+### Elastic Pool Leader Operations 🔗 
+The Autonomous Database instance that creates an elastic pool is the pool leader. 
+The following operations are valid only for the pool leader: 
+Operation | Description  
+---|---  
+Create an elastic pool. | The Autonomous Database instance that creates an elastic pool is the pool leader. See [Create an Elastic Pool](https://docs.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database/dedicated/adbor&id=CEGPU) for more information.   
+Remove an elastic pool member. | An elastic pool leader can remove a member from the elastic pool. See [Remove Pool Members from an Elastic Pool](https://docs.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database/dedicated/adbor&id=MERVV-GUID-58ACC35F-C821-4330-8593-2224AF37BE0E) for more information.   
+Terminate an elastic pool. | When an elastic pool has no pool members, the pool leader can terminate the elastic pool. See [Terminate an Elastic Pool](https://docs.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database/dedicated/adbor&id=MERVV-GUID-D7996855-6FD5-401A-AF3B-5937D0348543) for more information.   
+Modify elastic pool size. | An elastic pool leader can modify the pool size. See [Change the Elastic Pool Shape](https://docs.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database/dedicated/adbor&id=MERVV-GUID-58ACC35F-C821-4330-8593-2224AF37BE0E) for more information.   
+List elastic pool members. | A pool leader can list pool members. See [List Elastic Pool Members](https://docs.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database/dedicated/adbor&id=MERVV-GUID-C97F73B4-9AD7-4860-9396-C4AE3B5988E9) for more information.   
+**Parent topic:** [Consolidate Autonomous Database Instances Using Elastic Pools](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-75F3DACD-572F-4B5B-BBC3-F2FF5A1ED928 "Use an elastic pool to consolidate your Autonomous Database instances, in terms of their allocation of compute resources, and to provide up to 87% cost savings.")
+### Elastic Pool Member Operations 🔗 
+The Autonomous Database instance that are added to an existing pool are pool members. 
+The following operations are valid only for a pool member or a pool leader: 
+Operation | Description  
+---|---  
+Join an elastic pool. |  You can addan Autonomous Database instance to an elastic pool as a member _only when_ : 
+  * There are sufficient ECPUs remaining in the pool for allocation (4x the Pool Size ).
+  * The instance is one of the supported workload types, that is, Transaction Processing or Data Warehouse.
+  * Its compute model is ECPU.
+  * It is not already a member of a different pool.
+  * It is not configured with Autonomous Data Guard.
+
+See [Join an Elastic Pool](https://docs.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database/dedicated/adbor&id=NLEEP-GUID-F5BA941A-4CD3-4867-A385-AC8180B005D8) and [Join an Elastic Pool While Provisioning or Cloning an Autonomous Database ](https://docs.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database/dedicated/adbor&id=NLEEP-GUID-11991925-F4AF-4497-9A8B-07D327F7E6F9) for guidance.   
+Leave an elastic pool. | As a pool member, you can remove your instance from an elastic pool. 
+  * When a pool member leaves an elastic pool: 
+    * Auto-scaling is disabled. After leaving the elastic pool, you can enable auto-scaling for the instance.
+    * The pool will have more resources available. For example, if the elastic pool were fully allocated up to the pool capacity, and an instance with 10 ECPUs leaves the pool, the elastic pool would have 10 available ECPUs.
+
+See [Leave an Elastic Pool Autonomous Database](https://docs.oracle.com/pls/topic/lookup?ctx=en/cloud/paas/autonomous-database/dedicated/adbor&id=NLEEP-GUID-A2A10B27-86EA-40B1-BCDB-36B2C511F8F3) for instructions.   
+**Parent topic:** [Consolidate Autonomous Database Instances Using Elastic Pools](https://docs.oracle.com/en-us/iaas/autonomous-database/doc/consolidate-adb-instances-using-elastic-resource-pool.html#GUID-75F3DACD-572F-4B5B-BBC3-F2FF5A1ED928 "Use an elastic pool to consolidate your Autonomous Database instances, in terms of their allocation of compute resources, and to provide up to 87% cost savings.")
+Was this article helpful?
+YesNo
+

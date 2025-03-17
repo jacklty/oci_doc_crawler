@@ -1,0 +1,127 @@
+Updated 2024-10-29
+## Compute Models in Autonomous Database 🔗 
+Autonomous Database offers two compute models when you create or clone an instance: ECPU and OCPU. 
+  * **ECPU** : An ECPU is an abstracted measure of compute resources. ECPUs are based on the number of cores elastically allocated from a pool of compute and storage servers.
+While provisioning a new database or cloning an existing database: 
+    * The CPU count defaults to 2 ECPUs.
+    * For databases that need more than 2 ECPUs, you must specify the number of assigned ECPUs as an integer. For example, you cannot assign 3.5 ECPUs to a database. The next available number of ECPUs above 3 is 4.
+  * **OCPU** : An OCPU is a physical measure of compute resources. OCPUs are based on the physical core of a processor with hyper-threading enabled. 
+**Note** OCPU is a legacy billing metric and has been retired for Autonomous Data Warehouse (**Data Warehouse** workload type) and Autonomous Transaction Processing (**Transaction Processing** workload type). Oracle recommends using ECPUs for all new and existing Autonomous Database deployments. See [Oracle Support Document 2998742.1](https://support.oracle.com/epmos/faces/DocumentDisplay?id=2998742.1) for more information.
+While provisioning a new database or cloning an existing database: 
+    * The CPU count defaults to 1 OCPU.
+    * For databases that need more than 1 OCPU, you must specify the number of assigned OCPUs as an integer. For example, you cannot assign 3.5 OCPUs to a database. The next available number of OCPUs above 3 is 4.
+
+
+See [Provision an Autonomous Database Instance](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-provision.html#GUID-0B230036-0A05-4CA3-AF9D-97A255AE0C08 "Follow these steps to provision a new Autonomous Database instance using the Oracle Cloud Infrastructure Console.") and [Clone an Autonomous Database Instance](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-clone.html#GUID-68199DE6-CD45-4A6D-8EE6-1D95D45C8B1A "Shows you the steps to clone an Autonomous Database from the Oracle Cloud Infrastructure Console.") for more information. 
+  * [ECPU Compute Model Billing Information](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-A5D31653-10A3-4936-88F8-C35CF7DD5FA7) Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the ECPU compute model. 
+  * [OCPU Compute Model Billing Information](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-AC9BA67B-BF88-4A32-9609-F76ACE1E40DE)Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the OCPU compute model. 
+
+
+**Parent topic:** [How Is Autonomous Database Billed?](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomomous-database-billing.html#GUID-FB734703-0E52-4AA1-996D-012733D4C0D8 "Provides details for Autonomous Database billing.")
+### ECPU Compute Model Billing Information 🔗 
+Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the ECPU compute model. 
+Cost and usage reports are available from the Oracle Cloud Infrastructure Console, under **Billing and Cost Management**. 
+Cost reports look like this: `reports/cost-csv/000100000101010101-00001.csv.gz`. Download the zip file and extract to view the details. 
+Usage reports look like this: `reports/usage-csv/0001000001010101.csv.gz`. Download the zip file extract to view the details. 
+  * [Billing Information: Autonomous Transaction Processing ECPU Compute Model](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-56380500-ABD8-4444-9B63-BD34843F7842)Shows billing information for Autonomous Transaction Processing with the ECPU compute model. 
+  * [Billing Information: Autonomous Data Warehouse ECPU Compute Model](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-251017AE-86B7-44A3-A1D3-E233A13661E4)Shows billing information for Autonomous Data Warehouse with the ECPU compute model. 
+  * [Billing Information: Autonomous JSON Database ECPU Compute Model](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-102EFF93-41B6-4292-9589-D071D13038C3)Shows billing information for Autonomous JSON Database with the ECPU compute model. 
+  * [Billing Information: APEX Service ECPU Compute Model](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-8C3A611D-A5CE-4092-99A1-068466421180)Shows billing information for APEX Service with the ECPU compute model. 
+  * [Billing Information: Autonomous Database for Developers](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-FB667D64-64C4-4C9E-8560-F57A55F9C359)Shows billing information for Autonomous Database for Developers with the ECPU compute model. 
+
+
+**Parent topic:** [Compute Models in Autonomous Database](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-7F4EE72A-ABE7-4FC9-B4BE-86802D9AD05A "Autonomous Database offers two compute models when you create or clone an instance: ECPU and OCPU.")
+#### Billing Information: Autonomous Transaction Processing ECPU Compute Model  🔗 
+Shows billing information for Autonomous Transaction Processing with the ECPU compute model. 
+Resource Description | SKU Name | Part Number | Metric | Min. Increments Allowed | Cost and Usage Reports  
+---|---|---|---|---|---  
+ECPU usage | Oracle Autonomous Transaction Processing – ECPU  | B95702 | ECPU per hour | 1 ECPU Minimum number of ECPUs is 2 |  Cost report: in the `product/Description                 ` column, find, "Oracle Autonomous Transaction Processing – ECPU"  Usage report: in the` product/resource` column, find `PIC_ATP_ECPU_LI`  
+ECPU usage (Bring your own license) | Oracle Autonomous Transaction Processing – ECPU – BYOL  | B95704 | ECPU per hour | 1 ECPU Minimum number of ECPUs is 2 |  Cost report: in the `product/Description                 ` column, find, "Oracle Autonomous Transaction Processing – ECPU – BYOL"  Usage report: in the` product/resource` column, find `PIC_ATP_ECPU_BYOL`  
+Database Storage usage | Oracle Autonomous Database Storage for Transaction Processing | B95706 | Gigabyte Storage Capacity Per Month | 1 GB Minimum storage size is 20 GB |  Cost report: in the `product/Description                 ` column, find, "Oracle Autonomous Database Storage for Transaction Processing"  Usage report: in the `product/resource` column, find `PIC_ADB_STORAGE_ATP`  
+Backup Storage usage | Oracle Autonomous Database Storage | B95754 | Gigabyte Storage Capacity Per Month | 1 GB Backups are billed per GB |  Cost report: in the `product/Description` column, find, "Database Backup Storage"  Usage report: in the `product/resource` column, find `PIC_ADB_STORAGE`  
+See [Cost and Usage Reports Overview](https://docs.oracle.com/iaas/Content/Billing/Concepts/usagereportsoverview.htm) for details on the cost and usage reports. 
+**Parent topic:** [ECPU Compute Model Billing Information](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-A5D31653-10A3-4936-88F8-C35CF7DD5FA7 "Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the ECPU compute model.")
+#### Billing Information: Autonomous Data Warehouse ECPU Compute Model  🔗 
+Shows billing information for Autonomous Data Warehouse with the ECPU compute model. 
+Resource Description | SKU Name | Part Number | Metric | Min. Increments Allowed | Cost and Usage Reports  
+---|---|---|---|---|---  
+ECPU usage  | Oracle Autonomous Data Warehouse – ECPU  | B95701 | ECPU per hour | 1 ECPU Minimum number of ECPUs is 2 |  Cost report: in the `product/Description ` column, find, "Oracle Autonomous Data Warehouse – ECPU"  Usage report: in the ` product/resource` column, find `PIC_ADW_ECPU_LI`  
+ECPU usage (Bring your own license) | Oracle Autonomous Data Warehouse – ECPU – BYOL  | B95703 | ECPU per hour | 1 ECPU Minimum number of ECPUs is 2 |  Cost report: in the `product/Description ` column, find, "Oracle Autonomous Data Warehouse – ECPU – BYOL"  Usage report: in the ` product/resource` column, find `PIC_ADW_ECPU_BYOL`  
+Database Storage usage | Oracle Autonomous Database Storage | B95754 | Gigabyte Storage Capacity Per Month | 1 TB (1024 GB) |  Cost report: in the `product/Description                 ` column, find, "Oracle Autonomous Database Storage"  Usage report: in the `product/resource` column, find `PIC_ADB_STORAGE`  
+Backup Storage usage | Oracle Autonomous Database Storage | B95754 | Gigabyte Storage Capacity Per Month | 1 GB Backups are billed per GB |  Cost report: in the `product/Description                 ` column, find, "Oracle Autonomous Database Backup Storage"  Usage report: in the `product/resource` column, find `PIC_ADB_STORAGE`  
+See [Cost and Usage Reports Overview](https://docs.oracle.com/iaas/Content/Billing/Concepts/usagereportsoverview.htm) for details on the cost and usage reports. 
+**Parent topic:** [ECPU Compute Model Billing Information](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-A5D31653-10A3-4936-88F8-C35CF7DD5FA7 "Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the ECPU compute model.")
+#### Billing Information: Autonomous JSON Database ECPU Compute Model  🔗 
+Shows billing information for Autonomous JSON Database with the ECPU compute model. 
+Resource Description | SKU Name | Part Number | Metric | Min. Increments Allowed | Cost and Usage Reports  
+---|---|---|---|---|---  
+ECPU usage | Autonomous JSON Database – ECPU  | B99708 | ECPU per hour | 1 ECPU Minimum number of ECPUs is 2 |  Cost report: in the `product/Description                 ` column, find, "Autonomous JSON Database – ECPU"  Usage report: in the` product/resource` column, find `PIC_AJD_ECPU_LI`  
+Database Storage usage | Oracle Autonomous Database Storage for Transaction Processing | B95706 | Gigabyte Storage Capacity Per Month | 1 GB Minimum storage size is 20 GB |  Cost report: in the `product/Description                 ` column, find, "Oracle Autonomous Database Storage for Transaction Processing"  Usage report: in the `product/resource` column, find `PIC_ADB_STORAGE_ATP`  
+Backup Storage usage | Oracle Autonomous Database Storage | B95754 | Gigabyte Storage Capacity Per Month | 1 GB Backups are billed per GB |  Cost report: in the `product/Description` column, find, "Database Backup Storage"  Usage report: in the `product/resource` column, find `PIC_ADB_STORAGE`  
+See [Cost and Usage Reports Overview](https://docs.oracle.com/iaas/Content/Billing/Concepts/usagereportsoverview.htm) for details on the cost and usage reports. 
+**Parent topic:** [ECPU Compute Model Billing Information](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-A5D31653-10A3-4936-88F8-C35CF7DD5FA7 "Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the ECPU compute model.")
+#### Billing Information: APEX Service ECPU Compute Model  🔗 
+Shows billing information for APEX Service with the ECPU compute model. 
+Resource Description | SKU Name | Part Number | Metric | Min. Increments Allowed | Cost and Usage Reports  
+---|---|---|---|---|---  
+ECPU usage | APEX Service – ECPU  | B99709 | ECPU per hour | 1 ECPU Minimum number of ECPUs is 2 |  Cost report: in the `product/Description ` column, find, "APEX Service – ECPU"  Usage report: in the ` product/resource` column, find `PIC_APEX_ECPU_LI`  
+Database Storage usage | Oracle Autonomous Database Storage for Transaction Processing | B95706 | Gigabyte Storage Capacity Per Month | 1 GB Minimum storage size is 20 GB |  Cost report: in the `product/Description                 ` column, find, "Oracle Autonomous Database Storage for Transaction Processing"  Usage report: in the `product/resource` column, find `PIC_ADB_STORAGE_ATP`  
+Backup Storage usage | Oracle Autonomous Database Storage | B95754 | Gigabyte Storage Capacity Per Month | 1 GB Backups are billed per GB |  Cost report: in the `product/Description` column, find, "Database Backup Storage"  Usage report: in the `product/resource` column, find `PIC_ADB_STORAGE`  
+See [Cost and Usage Reports Overview](https://docs.oracle.com/iaas/Content/Billing/Concepts/usagereportsoverview.htm) for details on the cost and usage reports. 
+**Parent topic:** [ECPU Compute Model Billing Information](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-A5D31653-10A3-4936-88F8-C35CF7DD5FA7 "Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the ECPU compute model.")
+#### Billing Information: Autonomous Database for Developers 🔗 
+Shows billing information for Autonomous Database for Developers with the ECPU compute model. 
+Resource Description | SKU Name | Part Number | Metric | Min. Increments Allowed | Cost and Usage Reports  
+---|---|---|---|---|---  
+Instance usage (includes ECPU and storage) | Oracle Autonomous Database - Developer | B110316 | Instance per hour | Fixed 4 ECPUs and 20 GB storage included |  Cost report: in the `                   product/Description` column, find, "Oracle Autonomous Database – Developer"  Usage report: in the` product/resource` column, find `PIC_ADB_DEVELOPER_LI` in the `product/Description ` column.   
+See [Cost and Usage Reports Overview](https://docs.oracle.com/iaas/Content/Billing/Concepts/usagereportsoverview.htm) for details on the cost and usage reports. 
+**Parent topic:** [ECPU Compute Model Billing Information](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-A5D31653-10A3-4936-88F8-C35CF7DD5FA7 "Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the ECPU compute model.")
+### OCPU Compute Model Billing Information 🔗 
+Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the OCPU compute model. 
+**Note** OCPU is a legacy billing metric and has been retired for Autonomous Data Warehouse (**Data Warehouse** workload type) and Autonomous Transaction Processing (**Transaction Processing** workload type). Oracle recommends using ECPUs for all new and existing Autonomous Database deployments. See [Oracle Support Document 2998742.1](https://support.oracle.com/epmos/faces/DocumentDisplay?id=2998742.1) for more information.
+  * [Billing Information: Autonomous Transaction Processing OCPU Compute Model](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-DDB1E57A-5E64-42ED-8F2A-4230E3CA5C54)Shows billing information for Autonomous Transaction Processing with the OCPU compute model. 
+  * [Billing Information: Autonomous Data Warehouse OCPU Compute Model](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-32C20D51-C94C-4E1A-8E2D-EC49F6D86571) Shows billing information for Autonomous Data Warehouse with the OCPU compute model. 
+  * [Billing Information: Autonomous JSON Database OCPU Compute Model](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-87F0B504-5397-4FD8-8E44-C7ED44658968) Shows billing information for Autonomous JSON Database with the OCPU compute model. 
+  * [Billing Information: APEX Service OCPU Compute Model](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-434E1566-3689-4F0F-921A-495BCE9CCD47)Shows billing information for APEX Service with the OCPU compute model. 
+
+
+**Parent topic:** [Compute Models in Autonomous Database](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-7F4EE72A-ABE7-4FC9-B4BE-86802D9AD05A "Autonomous Database offers two compute models when you create or clone an instance: ECPU and OCPU.")
+#### Billing Information: Autonomous Transaction Processing OCPU Compute Model  🔗 
+Shows billing information for Autonomous Transaction Processing with the OCPU compute model. 
+Resource Description | SKU Name | Part Number | Metric | Min. Increments Allowed | Cost and Usage Reports  
+---|---|---|---|---|---  
+OCPU usage  | Oracle Autonomous Transaction Processing | B90453 | OCPU per hour | 1 OCPU |  Cost report: In the `product/Description ` column, find "Oracle Autonomous Transaction Processing"  Usage report: in the ` product/resource` column, find `PIC_ATP_COMPUTE`  
+OCPU usage (Bring your own license) | Oracle Autonomous Transaction Processing – BYOL  | B90454  | OCPU per hour | 1 OCPU |  Cost report: Cost report: in the `product/Description` column, find, "Oracle Autonomous Transaction Processing – BYOL"  Usage report: in the `product/resourceID` column, find `PIC_ATP_COMPUTE_BYOL`  
+Database Storage usage | Oracle Autonomous Transaction Processing - Exadata Storage  | B90455 | Terabyte Storage Capacity Per Month | 1 TB |  Cost report: in the `product/Description                 ` column, find, "Oracle Autonomous Transaction Processing - Exadata Storage"  Usage report: in the` product/resource` column, find `PIC_ATP_EXADATA_STORAGE`  
+See [Cost and Usage Reports Overview](https://docs.oracle.com/iaas/Content/Billing/Concepts/usagereportsoverview.htm) for details on the cost and usage reports. 
+**Parent topic:** [OCPU Compute Model Billing Information](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-AC9BA67B-BF88-4A32-9609-F76ACE1E40DE "Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the OCPU compute model.")
+#### Billing Information: Autonomous Data Warehouse OCPU Compute Model  🔗 
+Shows billing information for Autonomous Data Warehouse with the OCPU compute model. 
+Resource Description | SKU Name | Part Number | Metric | Min. Increments Allowed | Cost and Usage Reports  
+---|---|---|---|---|---  
+OCPU usage | Oracle Autonomous Data Warehouse | B89040 | OCPU per hour | 1 OCPU |  Cost report: in the `product/Description ` column, find "Oracle Autonomous Data Warehouse"  Usage report: in the ` product/resource` column, find `PIC_ADWC_COMPUTE`  
+OCPU usage (Bring your own license) | Oracle Autonomous Data Warehouse – BYOL  | B89039 | OCPU per hour | 1 OCPU |  Cost report: in the `product/Description                 ` column, find "Oracle Autonomous Data Warehouse – BYOL"  Usage report: in the ` product/resource` column, find `PIC_ADWC_COMPUTE_BYOL`  
+Database Storage usage | Oracle Autonomous Data Warehouse - Exadata Storage  | B89041 | Terabyte Storage Capacity Per Month | 1 TB |  Cost report: in the `product/Description                 ` column, find "Oracle Autonomous Data Warehouse - Exadata Storage"  Usage report: in the ` product/resource` column, find `PIC_ADWC_EXADATA_STORAGE`  
+See [Cost and Usage Reports Overview](https://docs.oracle.com/iaas/Content/Billing/Concepts/usagereportsoverview.htm) for details on the cost and usage reports. 
+**Parent topic:** [OCPU Compute Model Billing Information](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-AC9BA67B-BF88-4A32-9609-F76ACE1E40DE "Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the OCPU compute model.")
+#### Billing Information: Autonomous JSON Database OCPU Compute Model  🔗 
+Shows billing information for Autonomous JSON Database with the OCPU compute model. 
+Resource Description | SKU Name | Part Number | Metric | Min. Increments Allowed | Cost and Usage Reports  
+---|---|---|---|---|---  
+OCPU usage | Oracle Autonomous JSON Database | B92212 | OCPU per hour | 1 OCPU |  Cost report: in the `product/Description ` column, find "Oracle Autonomous JSON Database"  Usage report: in the ` product/resource` column, find `PIC_AJD_COMPUTE`  
+Database Storage usage | Oracle Autonomous Transaction Processing - Exadata Storage  | B90453 | Terabyte Storage Capacity Per Month | 1 TB |  Cost report: in the `product/Description                 ` column, find "Oracle Autonomous JSON Database - Exadata Storage"  Usage report: in the ` product/resource` column, find `PIC_ATP_EXADATA_STORAGE`  
+**Note** In the OCPU model, 60 days of automatic backups are included in the cost of database storage and have no additional charge. Long-term backups are billed additionally, as database storage (Part Number: B90453). 
+See [Cost and Usage Reports Overview](https://docs.oracle.com/iaas/Content/Billing/Concepts/usagereportsoverview.htm) for details on the cost and usage reports. 
+**Parent topic:** [OCPU Compute Model Billing Information](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-AC9BA67B-BF88-4A32-9609-F76ACE1E40DE "Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the OCPU compute model.")
+#### Billing Information: APEX Service OCPU Compute Model  🔗 
+Shows billing information for APEX Service with the OCPU compute model. 
+Resource Description | SKU Name | Part Number | Metric | Min. Increments Allowed | Cost and Usage Reports  
+---|---|---|---|---|---  
+OCPU usage  | Oracle APEX Application Development | B92911 | OCPU per hour | 1 OCPU |  Cost report: In the `product/Description ` column, find "Oracle APEX Application Development"  Usage report: in the ` product/resource` column, find `PIC_ADBS_APEX_LI`  
+Database Storage usage | Oracle Autonomous Transaction Processing - Exadata Storage  | B90453 | Terabyte Storage Capacity Per Month | 1 TB |  Cost report: in the `product/Description                 ` column, find, "Oracle Autonomous Transaction Processing - Exadata Storage"  Usage report: in the` product/resource` column, find `PIC_ATP_EXADATA_STORAGE`  
+**Note** In the OCPU model, 60 days of automatic backups are included in the cost of database storage and have no additional charge. Long-term backups are billed additionally, as database storage (Part Number: B90453). 
+See [Cost and Usage Reports Overview](https://docs.oracle.com/iaas/Content/Billing/Concepts/usagereportsoverview.htm) for details on the cost and usage reports. 
+**Parent topic:** [OCPU Compute Model Billing Information](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/autonomous-compute-models.html#GUID-AC9BA67B-BF88-4A32-9609-F76ACE1E40DE "Provides billing information for Autonomous Transaction Processing, Autonomous Data Warehouse, Autonomous JSON Database, and APEX Service with the OCPU compute model.")
+Was this article helpful?
+YesNo
+
